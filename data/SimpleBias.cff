@@ -1,0 +1,26 @@
+//
+// Simple Zero- and Minimal-Bias Triggers
+//
+
+//
+// Logic: 
+// at HLT level: always Zero Bias - do not need Min Bias (1 permille effect!)
+// at L1  level: Zero Bias (to check L1) or Min Bias (to check HLT)
+//
+
+module  l1sZero = hltLevel1Seed from "HLTrigger/HLTexample/data/hltLevel1Seed.cfi"
+replace l1sZero.L1Seed = {"MinBias"} // Bad name: is just a Zero Bias L1 Trigger!
+
+module  preZero = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
+replace preZero.prescaleFactor = 1
+
+path HLTZeroBias = {l1sZero, preZero}
+
+
+module  l1sMin = hltLevel1Seed from "HLTrigger/HLTexample/data/hltLevel1Seed.cfi"
+replace l1sMin.L1Seed = { } // For now: Min Bias at L1 is any L1 trigger - should have a real Min Bias Trigger at L1!
+
+module  preMin = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
+replace preMin.prescaleFactor = 1
+
+path HLTMinBias = {l1sMin , preMin}
