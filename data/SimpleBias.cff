@@ -9,7 +9,11 @@
 //
 
 module  l1sZero = hltLevel1Seed from "HLTrigger/HLTexample/data/hltLevel1Seed.cfi"
-replace l1sZero.L1Seed = {"MinBias"} // Bad name: is just a Zero Bias L1 Trigger!
+replace l1sZero.L1Seeds = {"MinBias"} // Bad name: is just a Zero Bias L1 Trigger!
+replace l1sZero.L1ExtraCollections = l1extraParticles
+replace l1sZero.L1ExtraParticleMap = l1extraParticleMap
+replace l1sZero.L1GTReadoutRecord  = l1extraParticleMap
+
 
 module  preZero = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
 replace preZero.prescaleFactor = 1
@@ -18,7 +22,10 @@ path HLTZeroBias = {l1sZero, preZero}
 
 
 module  l1sMin = hltLevel1Seed from "HLTrigger/HLTexample/data/hltLevel1Seed.cfi"
-replace l1sMin.L1Seed = { } // For now: Min Bias at L1 is any L1 trigger - should have a real Min Bias Trigger at L1!
+replace l1sMin.L1Seeds = { } // For now: Min Bias at L1 is any L1 trigger - should have a real Min Bias Trigger at L1!
+replace l1sMin.L1ExtraCollections = l1extraParticles
+replace l1sMin.L1ExtraParticleMap = l1extraParticleMap
+replace l1sMin.L1GTReadoutRecord  = l1extraParticleMap
 
 module  preMin = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
 replace preMin.prescaleFactor = 1
