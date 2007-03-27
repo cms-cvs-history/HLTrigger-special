@@ -25,7 +25,7 @@ replace l1sZero.L1GTReadoutRecord  = l1extraParticleMap
 
 // HLTPrescaler:
 module  preZero = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
-replace preZero.prescaleFactor = 1
+replace preZero.prescaleFactor = 100000
 
 // Actual HLT path:
 path HLTZeroBias = {doL1TfromDigis, l1sZero, preZero}
@@ -40,7 +40,7 @@ replace l1sMin.L1GTReadoutRecord  = l1extraParticleMap
 
 // HLTPrescaler:
 module  preMin = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
-replace preMin.prescaleFactor = 1
+replace preMin.prescaleFactor = 100000
 
 // Actual HLT path:
 path HLTMinBias = {doL1TfromDigis, l1sMin , preMin}
