@@ -1,0 +1,16 @@
+     include "RecoLocalTracker/SiPixelClusterizer/data/SiPixelClusterizer.cfi"
+     include "RecoLocalTracker/SiPixelRecHits/data/SiPixelRecHits.cfi"
+
+     include "RecoPixelVertexing/PixelTrackFitting/data/PixelTracks.cff"
+
+     # request Pixel track finding with very low pt threshold
+     replace pixelTracks.RegionPSet = {
+       double ptMin = 0.2
+       double originRadius = 0.2
+       double originHalfLength = 15.0
+       double originZPos = 0.0
+       bool precise = false
+     }
+
+
+
