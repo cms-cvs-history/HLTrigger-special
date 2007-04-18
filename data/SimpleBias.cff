@@ -17,8 +17,8 @@ include "HLTrigger/Configuration/data/common/Level1Trigger.cff"
 
 
 // HLT Level-1 Seed filter:
-module  l1sZero = hltLevel1Seed from "HLTrigger/HLTfilters/data/hltLevel1Seed.cfi"
-replace l1sZero.L1Seeds = {"MinBias"} // Bad name: is just a Zero Bias L1 Trigger!
+module  l1sZero = hltLevel1Seed from "HLTrigger/HLTexample/data/hltLevel1Seed.cfi"
+replace l1sZero.L1Seeds = {"A_ZeroBias"}
 replace l1sZero.L1ExtraCollections = l1extraParticles
 replace l1sZero.L1ExtraParticleMap = l1extraParticleMap
 replace l1sZero.L1GTReadoutRecord  = l1extraParticleMap
@@ -32,8 +32,8 @@ path HLTZeroBias = {doL1TfromDigis, l1sZero, preZero}
 
 
 // HLT Level-1 Seed filter:
-module  l1sMin = hltLevel1Seed from "HLTrigger/HLTfilters/data/hltLevel1Seed.cfi"
-replace l1sMin.L1Seeds = { } // For now: Min Bias at L1 is any L1 trigger - should have a real Min Bias Trigger at L1!
+module  l1sMin = hltLevel1Seed from "HLTrigger/HLTexample/data/hltLevel1Seed.cfi"
+replace l1sMin.L1Seeds = {"A_MinBias_HTT10"}
 replace l1sMin.L1ExtraCollections = l1extraParticles
 replace l1sMin.L1ExtraParticleMap = l1extraParticleMap
 replace l1sMin.L1GTReadoutRecord  = l1extraParticleMap

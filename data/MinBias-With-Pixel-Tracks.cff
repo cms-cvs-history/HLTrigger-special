@@ -7,7 +7,7 @@
 
 #    the following to use l1 emulator
      module l1MinBias =  hltLevel1Seed from "HLTrigger/HLTexample/data/hltLevel1Seed.cfi"
-     replace l1MinBias.L1Seeds = {"MinBias"}
+     replace l1MinBias.L1Seeds = {"A_ZeroBias"}
      replace l1MinBias.L1ExtraCollections = l1extraParticles
      replace l1MinBias.L1ExtraParticleMap = l1extraParticleMap
      replace l1MinBias.L1GTReadoutRecord = l1extraParticleMap
