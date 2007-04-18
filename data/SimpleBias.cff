@@ -17,7 +17,7 @@ include "HLTrigger/Configuration/data/common/Level1Trigger.cff"
 
 
 // HLT Level-1 Seed filter:
-module  l1sZero = hltLevel1Seed from "HLTrigger/HLTexample/data/hltLevel1Seed.cfi"
+module  l1sZero = hltLevel1Seed from "HLTrigger/HLTfilters/data/hltLevel1Seed.cfi"
 replace l1sZero.L1Seeds = {"A_ZeroBias"}
 replace l1sZero.L1ExtraCollections = l1extraParticles
 replace l1sZero.L1ExtraParticleMap = l1extraParticleMap
@@ -32,7 +32,7 @@ path HLTZeroBias = {doL1TfromDigis, l1sZero, preZero}
 
 
 // HLT Level-1 Seed filter:
-module  l1sMin = hltLevel1Seed from "HLTrigger/HLTexample/data/hltLevel1Seed.cfi"
+module  l1sMin = hltLevel1Seed from "HLTrigger/HLTfilters/data/hltLevel1Seed.cfi"
 replace l1sMin.L1Seeds = {"A_MinBias_HTT10"}
 replace l1sMin.L1ExtraCollections = l1extraParticles
 replace l1sMin.L1ExtraParticleMap = l1extraParticleMap
