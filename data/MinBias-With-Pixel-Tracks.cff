@@ -1,12 +1,12 @@
      include "HLTrigger/Configuration/data/common/Level1Trigger.cff"
 
 ##    the following to use l1extramctruth
-#     module l1MinBias =  hltLevel1Seed from "HLTrigger/HLTfilters/data/hltLevel1Seed.cfi"
+#     module l1MinBias =  hltLevel1Seed from "HLTrigger/HLTexample/data/hltLevel1Seed.cfi"
 #     replace l1MinBias.L1Seeds = {"MinBias"}
 #     sequence L1TSeq = {l1extramctruth, l1MinBias}
 
 #    the following to use l1 emulator
-     module l1MinBias =  hltLevel1Seed from "HLTrigger/HLTfilters/data/hltLevel1Seed.cfi"
+     module l1MinBias =  hltLevel1Seed from "HLTrigger/HLTexample/data/hltLevel1Seed.cfi"
      replace l1MinBias.L1Seeds = {"A_ZeroBias"}
      replace l1MinBias.L1ExtraCollections = l1extraParticles
      replace l1MinBias.L1ExtraParticleMap = l1extraParticleMap
@@ -20,7 +20,7 @@
 
 #   convert all pixel tracks to RecoChargedCandidates
     module hltPixlCands = ConcreteChargedCandidateProducer{
-       InputTag src = pixelTracks
+       InputTag src = pixelTracksForMinBias
 #      just pretend tracks are pi+, many will not really be...
        string particleType = "pi+"
     }
