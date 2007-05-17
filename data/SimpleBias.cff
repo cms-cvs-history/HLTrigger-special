@@ -1,23 +1,16 @@
 //
 // Simple Zero- and Minimal-Bias Triggers
 //
-
-
-//
-// Level-1 trigger sequences:
-include "HLTrigger/Configuration/data/common/Level1Trigger.cff"
-//
-
-
-//
 // Logic: 
 // at HLT level: always Zero Bias - do not need Min Bias (100Hz/100kHz = 1 permille effect!)
 // at L1T level: Zero Bias (to check L1) or Min Bias (to check HLT)
 //
 
 
+include "HLTrigger/Configuration/data/common/HLTSetup.cff"
+
 // HLT Level-1 Seed filter:
-module  l1sZero = hltLevel1Seed from "HLTrigger/HLTfilters/data/hltLevel1Seed.cfi"
+module  l1sZero = hltLevel1Seed from "HLTrigger/HLTexample/data/hltLevel1Seed.cfi"
 replace l1sZero.L1Seeds = {"A_ZeroBias"}
 replace l1sZero.L1ExtraCollections = l1extraParticles
 replace l1sZero.L1ExtraParticleMap = l1extraParticleMap
@@ -28,11 +21,11 @@ module  preZero = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
 replace preZero.prescaleFactor = 100000
 
 // Actual HLT path:
-path HLTZeroBias = {doL1TfromDigis, l1sZero, preZero}
+sequence hltZeroBias = {hltBegin & l1sZero & preZero}
 
 
 // HLT Level-1 Seed filter:
-module  l1sMin = hltLevel1Seed from "HLTrigger/HLTfilters/data/hltLevel1Seed.cfi"
+module  l1sMin = hltLevel1Seed from "HLTrigger/HLTexample/data/hltLevel1Seed.cfi"
 replace l1sMin.L1Seeds = {"A_MinBias_HTT10"}
 replace l1sMin.L1ExtraCollections = l1extraParticles
 replace l1sMin.L1ExtraParticleMap = l1extraParticleMap
@@ -43,4 +36,4 @@ module  preMin = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
 replace preMin.prescaleFactor = 100000
 
 // Actual HLT path:
-path HLTMinBias = {doL1TfromDigis, l1sMin , preMin}
+sequence hltMinBias = {hltBegin & l1sMin & preMin}
