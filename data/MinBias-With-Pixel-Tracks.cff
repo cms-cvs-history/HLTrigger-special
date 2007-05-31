@@ -11,7 +11,7 @@
        bool precise = false
     }
 
-    module l1seedMinBiasPixel =  hltLevel1Seed from "HLTrigger/HLTexample/data/hltLevel1Seed.cfi" 
+    module l1seedMinBiasPixel =  hltLevel1Seed from "HLTrigger/HLTfilters/data/hltLevel1Seed.cfi" 
     replace l1seedMinBiasPixel.L1Seeds = {"A_ZeroBias"}
     replace l1seedMinBiasPixel.L1ExtraCollections = l1extraParticles
     replace l1seedMinBiasPixel.L1ExtraParticleMap = l1extraParticleMap
