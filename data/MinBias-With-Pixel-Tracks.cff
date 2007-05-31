@@ -1,20 +1,21 @@
-     include "HLTrigger/Configuration/data/common/HLTSetup.cff"
+//
+    include "HLTrigger/Configuration/data/common/HLTSetup.cff"
 
-     module pixelTracksForMinBias = pixelTracks from "RecoPixelVertexing/PixelTrackFitting/data/PixelTracks.cfi"
-     # request Pixel track finding with very low pt threshold
-     replace pixelTracksForMinBias.RegionFactoryPSet.RegionPSet = {
+    module pixelTracksForMinBias = pixelTracks from "RecoPixelVertexing/PixelTrackFitting/data/PixelTracks.cfi"
+#   request Pixel track finding with very low pt threshold
+    replace pixelTracksForMinBias.RegionFactoryPSet.RegionPSet = {
        double ptMin = 0.2
        double originRadius = 0.2
        double originHalfLength = 15.0
        double originZPos = 0.0
        bool precise = false
-     }
+    }
 
-     module l1seedMinBiasPixel =  hltLevel1Seed from "HLTrigger/HLTexample/data/hltLevel1Seed.cfi" 
-     replace l1seedMinBiasPixel.L1Seeds = {"A_ZeroBias"}
-     replace l1seedMinBiasPixel.L1ExtraCollections = l1extraParticles
-     replace l1seedMinBiasPixel.L1ExtraParticleMap = l1extraParticleMap
-     replace l1seedMinBiasPixel.L1GTReadoutRecord  = l1extraParticleMap
+    module l1seedMinBiasPixel =  hltLevel1Seed from "HLTrigger/HLTexample/data/hltLevel1Seed.cfi" 
+    replace l1seedMinBiasPixel.L1Seeds = {"A_ZeroBias"}
+    replace l1seedMinBiasPixel.L1ExtraCollections = l1extraParticles
+    replace l1seedMinBiasPixel.L1ExtraParticleMap = l1extraParticleMap
+    replace l1seedMinBiasPixel.L1GTReadoutRecord  = l1extraParticleMap
 
 #   convert all pixel tracks to RecoChargedCandidates
     module hltPixelCands = ConcreteChargedCandidateProducer{
@@ -24,10 +25,12 @@
     }
 
 #   do the filter work 
-    module hltPixelMinBiasFilter = hltPixlMBFilt from "HLTrigger/special/data/hltPixlMBFilt.cfi"
+    module   hltMinBiasPixelFilter = hltPixlMBFilt from "HLTrigger/special/data/hltPixlMBFilt.cfi"
 
-#   prescaler
-module  preMinBiasPixel = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
-replace preMinBiasPixel.prescaleFactor = 10
+#   HLT prescaler
+    module   preMinBiasPixel = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
+    replace  preMinBiasPixel.prescaleFactor = 1
 
-    sequence hltMBPix = {hltBegin & preMinBiasPixel & l1seedMinBiasPixel & doLocalPixel & pixelTracksForMinBias , hltPixelCands , hltPixelMinBiasFilter}
+#   the full sequence
+    sequence hltMinBiasPixel = {hltBegin & preMinBiasPixel & l1seedMinBiasPixel & doLocalPixel & pixelTracksForMinBias , hltPixelCands , hltMinBiasPixelFilter}
+//
