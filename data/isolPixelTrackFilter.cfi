@@ -1,9 +1,0 @@
-#HLTPixelIsolTrackFilter configuration
-
-module isolPixelTrackFilter = HLTPixelIsolTrackFilter 
-    {
-     untracked InputTag candTag              = isolPixelTrackProd
-     double MinPtTrack                       = 10
-     double MaxPtNearby                      = 2
-    }
-
