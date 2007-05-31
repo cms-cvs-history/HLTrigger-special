@@ -24,7 +24,7 @@
     }
 
 #   do the filter work 
-    module hltPixelMinBiasFilter = hltPixlMBFilt from "HLTrigger/special/data/minBias-With-Pixel-Tracks.cfi"
+    module hltPixelMinBiasFilter = hltPixlMBFilt from "HLTrigger/special/data/hltPixlMBFilt.cfi"
 
-    sequence HLTMBPix = {hltBegin, l1seedMinBias, doLocalPixel, pixelTracksForMinBias, hltPixlCands & hltPixelMinBiasFilter}
+    sequence hltMBPix = {hltBegin, l1seedMinBias, doLocalPixel, pixelTracksForMinBias, hltPixlCands & hltPixelMinBiasFilter}
 
