@@ -1,5 +1,5 @@
 //
-// Simple Zero- and Minimal-Bias Triggers
+// Simple Min. and Zero Bias Triggers
 //
 // Logic: 
 // at HLT level: always Zero Bias - do not need Min Bias (100Hz/100kHz = 1 permille effect!)
@@ -7,33 +7,31 @@
 //
 
 
-include "HLTrigger/Configuration/data/common/HLTSetup.cff"
-
+//
+// Min. Bias
+//
 // HLT Level-1 Seed filter:
-module  l1sZero = hltLevel1Seed from "HLTrigger/HLTfilters/data/hltLevel1Seed.cfi"
-replace l1sZero.L1Seeds = {"A_ZeroBias"}
-replace l1sZero.L1ExtraCollections = l1extraParticles
-replace l1sZero.L1ExtraParticleMap = l1extraParticleMap
-replace l1sZero.L1GTReadoutRecord  = l1extraParticleMap
-
+module  hltl1sMin = hltLevel1Seed from "HLTrigger/HLTfilters/data/hltLevel1Seed.cfi"
+replace hltl1sMin.L1Seeds = {"L1_MinBias_HTT10"}
+//
 // HLTPrescaler:
-module  preZero = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
-replace preZero.prescaleFactor = 1
-
+module  hltpreMin = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
+replace hltpreMin.prescaleFactor = 1
+//
 // Actual HLT path:
-sequence hltZeroBias = {hltBegin & l1sZero & preZero}
+sequence hltMinBias = {hltBegin & hltl1sMin & hltpreMin}
 
 
+//
+// Zero Bias
+//
 // HLT Level-1 Seed filter:
-module  l1sMin = hltLevel1Seed from "HLTrigger/HLTfilters/data/hltLevel1Seed.cfi"
-replace l1sMin.L1Seeds = {"A_MinBias_HTT10"}
-replace l1sMin.L1ExtraCollections = l1extraParticles
-replace l1sMin.L1ExtraParticleMap = l1extraParticleMap
-replace l1sMin.L1GTReadoutRecord  = l1extraParticleMap
-
+module  hltl1sZero = hltLevel1Seed from "HLTrigger/HLTfilters/data/hltLevel1Seed.cfi"
+replace hltl1sZero.L1Seeds = {"L1_ZeroBias"}
+//
 // HLTPrescaler:
-module  preMin = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
-replace preMin.prescaleFactor = 1
-
+module  hltpreZero = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
+replace hltpreZero.prescaleFactor = 1
+//
 // Actual HLT path:
-sequence hltMinBias = {hltBegin & l1sMin & preMin}
+sequence hltZeroBias = {hltBegin & hltl1sZero & hltpreZero}
