@@ -6,13 +6,16 @@
     replace pixelTracksForMinBias.RegionFactoryPSet.RegionPSet = {
        double ptMin = 0.2
        double originRadius = 0.2
-       double originHalfLength = 15.0
+       double originHalfLength = 15.9
        double originZPos = 0.0
        bool precise = false
     }
 
+#    alternative to the above. Seems to work (and be a bit more efficient due to ptMin=0.2->0.075), but not properly tested yet.
+#    module pixelTracksForMinBias = pixelLowPtTracksWithZPos from "RecoPixelVertexing/PixelLowPtUtilities/data/PixelLowPtTracksWithZPos.cfi"
+
     module l1seedMinBiasPixel =  hltLevel1Seed from "HLTrigger/HLTfilters/data/hltLevel1Seed.cfi" 
-    replace l1seedMinBiasPixel.L1Seeds = {"A_ZeroBias"}
+    replace l1seedMinBiasPixel.L1Seeds = {"L1_ZeroBias"}
     replace l1seedMinBiasPixel.L1ExtraCollections = l1extraParticles
     replace l1seedMinBiasPixel.L1ExtraParticleMap = l1extraParticleMap
     replace l1seedMinBiasPixel.L1GTReadoutRecord  = l1extraParticleMap
@@ -32,5 +35,5 @@
     replace  preMinBiasPixel.prescaleFactor = 1
 
 #   the full sequence
-    sequence hltMinBiasPixel = {hltBegin & preMinBiasPixel & l1seedMinBiasPixel & doLocalPixel & pixelTracksForMinBias , hltPixelCands , hltMinBiasPixelFilter}
+    sequence hltMinBiasPixel = {hltBegin & preMinBiasPixel & l1seedMinBiasPixel & doLocalPixel & pixelTracksForMinBias & hltPixelCands , hltMinBiasPixelFilter}
 //
