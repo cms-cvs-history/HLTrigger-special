@@ -3,13 +3,7 @@
 
     module pixelTracksForMinBias = pixelTracks from "RecoPixelVertexing/PixelTrackFitting/data/PixelTracks.cfi"
 #   request Pixel track finding with very low pt threshold
-    replace pixelTracksForMinBias.RegionFactoryPSet.RegionPSet = {
-       double ptMin = 0.2
-       double originRadius = 0.2
-       double originHalfLength = 15.9
-       double originZPos = 0.0
-       bool precise = false
-    }
+    replace pixelTracksForMinBias.RegionFactoryPSet.RegionPSet.ptMin = 0.2
 
 #    alternative to the above. Seems to work (and be a bit more efficient due to ptMin=0.2->0.075), but not properly tested yet.
 #    module pixelTracksForMinBias = pixelLowPtTracksWithZPos from "RecoPixelVertexing/PixelLowPtUtilities/data/PixelLowPtTracksWithZPos.cfi"
