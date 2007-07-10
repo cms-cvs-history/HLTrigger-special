@@ -10,9 +10,6 @@
 
     module l1seedMinBiasPixel =  hltLevel1Seed from "HLTrigger/HLTfilters/data/hltLevel1Seed.cfi" 
     replace l1seedMinBiasPixel.L1Seeds = {"L1_ZeroBias"}
-    replace l1seedMinBiasPixel.L1ExtraCollections = l1extraParticles
-    replace l1seedMinBiasPixel.L1ExtraParticleMap = l1extraParticleMap
-    replace l1seedMinBiasPixel.L1GTReadoutRecord  = l1extraParticleMap
 
 #   convert all pixel tracks to RecoChargedCandidates
     module hltPixelCands = ConcreteChargedCandidateProducer{
