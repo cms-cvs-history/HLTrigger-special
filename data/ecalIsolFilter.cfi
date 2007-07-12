@@ -1,0 +1,9 @@
+#HLTEcalIsolationFilter configuration
+
+module ecalIsolFilter = HLTEcalIsolationFilter 
+    {
+     untracked InputTag EcalIsolatedParticleSource             = ecalIsolPartProd
+     double MinEnergy                       		       = 2
+     double MaxEnergyNearby                 		       = 1
+    }
+

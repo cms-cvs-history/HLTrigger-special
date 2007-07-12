@@ -1,0 +1,72 @@
+###################### HLT setup ############################
+
+include "HLTrigger/Configuration/data/common/HLTSetup.cff"
+
+######## l1 seed filter #############
+
+include "HLTrigger/HLTfilters/data/hltLevel1Seed.cfi"
+  replace hltLevel1Seed.L1Seeds = { "L1_SingleJet100" }
+  replace hltLevel1Seed.byName = true
+  replace hltLevel1Seed.L1ExtraCollections=l1extraParticles
+  replace hltLevel1Seed.L1ExtraParticleMap=l1extraParticleMap
+  replace hltLevel1Seed.L1GTReadoutRecord=l1extraParticleMap
+
+####################### PRESCALER ###################
+
+module preIsolTrack = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
+replace preIsolTrack.prescaleFactor = 1
+
+######################## CALO #######################
+
+#include "RecoLocalCalo/EcalRecProducers/data/getEcalConditions_frontier.cff"
+#include "RecoLocalCalo/Configuration/data/ecalLocalRecoSequence_frontier.cff"
+
+################# TRACKER LOCAL ################
+
+include "RecoLocalTracker/Configuration/data/RecoLocalTracker.cff"
+
+include "RecoPixelVertexing/PixelTrackFitting/data/PixelTracks.cff"
+
+####################### REGIONAL BASIC CLUSTERS #######################
+
+include "Calibration/HcalIsolatedTrackReco/data/regEcalCluProd.cfi"
+replace regEcalCluProd.BarrelSeedThreshold=0.4
+
+####################### ECAL ISOLATION PRODUCER ##############
+
+include "Calibration/HcalIsolatedTrackReco/data/ecalIsolPartProd.cfi"
+
+####################### ECAL ISOLATION FILTER ##########################
+
+include "HLTrigger/special/data/ecalIsolFilter.cfi"
+
+####################### ISOLATED PIXEL CANDS ##########################
+
+include "Calibration/HcalIsolatedTrackReco/data/isolPixelTrackProd.cfi"
+
+###################### ISOLATED PIXEL CAND FILTER ####################
+
+include "HLTrigger/special/data/isolPixelTrackFilter.cfi"
+
+######################################################################
+
+        sequence l1SeedFilter = {hltLevel1Seed}
+        sequence doEcal = {ecalLocalRecoSequence}
+        sequence doEcalIsolInput = {regEcalCluProd, ecalIsolPartProd}
+        sequence doPixelReco = {pixeltrackerlocalreco}
+        sequence doPixTrackInput = {pixelTracks, isolPixelTrackProd}
+        sequence pixelTrackFilter = {isolPixelTrackFilter}
+
+########## L2 filtering on isolation in ECAL ##############################
+
+        sequence l2EcalIsolFilter = {doEcal, doEcalIsolInput, ecalIsolFilter}
+
+########## L3 filtering on isolation in pixel detector ####################
+
+        sequence l3PixelIsolFilter = {doPixelReco, doPixTrackInput, pixelTrackFilter}
+
+###########################################################################
+
+sequence hltHcalIsolatedTrack = { hltBegin, l1SeedFilter, preIsolTrack, l2EcalIsolFilter, l3PixelIsolFilter}
+
+
