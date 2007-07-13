@@ -4,12 +4,8 @@ include "HLTrigger/Configuration/data/common/HLTSetup.cff"
 
 ######## l1 seed filter #############
 
-include "HLTrigger/HLTfilters/data/hltLevel1Seed.cfi"
-  replace hltLevel1Seed.L1Seeds = { "L1_SingleJet100" }
-  replace hltLevel1Seed.byName = true
-  replace hltLevel1Seed.L1ExtraCollections=l1extraParticles
-  replace hltLevel1Seed.L1ExtraParticleMap=l1extraParticleMap
-  replace hltLevel1Seed.L1GTReadoutRecord=l1extraParticleMap
+module  l1sIsolTrack = hltLevel1Seed from "HLTrigger/HLTfilters/data/hltLevel1Seed.cfi"
+replace l1sIsolTrack.L1Seeds = { "L1_SingleJet100" }
 
 ####################### PRESCALER ###################
 
@@ -50,7 +46,7 @@ include "HLTrigger/special/data/isolPixelTrackFilter.cfi"
 
 ######################################################################
 
-        sequence l1SeedFilter = {hltLevel1Seed}
+        sequence l1SeedFilter = {l1sIsolTrack}
         sequence doEcal = {ecalLocalRecoSequence}
         sequence doEcalIsolInput = {regEcalCluProd, ecalIsolPartProd}
         sequence doPixelReco = {pixeltrackerlocalreco}
@@ -67,6 +63,4 @@ include "HLTrigger/special/data/isolPixelTrackFilter.cfi"
 
 ###########################################################################
 
-sequence hltHcalIsolatedTrack = { hltBegin, l1SeedFilter, preIsolTrack, l2EcalIsolFilter, l3PixelIsolFilter}
-
-
+sequence hltHcalIsolatedTrack = { hltBegin, l1SeedFilter, preIsolTrack, l2EcalIsolFilter & l3PixelIsolFilter}
