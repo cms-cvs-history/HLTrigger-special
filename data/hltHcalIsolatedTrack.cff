@@ -10,7 +10,7 @@ replace l1sIsolTrack.L1Seeds = { "L1_SingleJet100" }
 ####################### PRESCALER ###################
 
 module preIsolTrack = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
-replace preIsolTrack.prescaleFactor = 1
+replace preIsolTrack.prescaleFactor = 4
 
 ######################## CALO #######################
 
