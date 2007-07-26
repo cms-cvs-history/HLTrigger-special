@@ -1,0 +1,32 @@
+//
+    include "HLTrigger/Configuration/data/common/HLTSetup.cff"
+
+#   request Pixel track finding with very low pt threshold. Even if only high-pt tracks
+#   are selected, the low-Pt might be wanted to check isolation of the high-Pt track.
+#   otherwise the ptMin here can be increased.
+    module pixelTracksForMinBias = pixelTracks from "RecoPixelVertexing/PixelTrackFitting/data/PixelTracks.cfi"
+    replace pixelTracksForMinBias.RegionFactoryPSet.RegionPSet.ptMin = 0.2
+
+#    alternative to the above. Seems to work (and be a bit more efficient due to ptMin=0.2->0.075), but not properly tested yet.
+#    module pixelTracksForMinBias = pixelLowPtTracksWithZPos from "RecoPixelVertexing/PixelLowPtUtilities/data/PixelLowPtTracksWithZPos.cfi"
+
+    module l1seedMinBiasPixel =  hltLevel1Seed from "HLTrigger/HLTfilters/data/hltLevel1Seed.cfi" 
+    replace l1seedMinBiasPixel.L1Seeds = {"L1_ZeroBias"}
+
+#   convert all pixel tracks to RecoChargedCandidates
+    module hltPixelCands = ConcreteChargedCandidateProducer{
+       InputTag src = pixelTracksForMinBias
+#      just pretend tracks are pi+, many will not really be...
+       string particleType = "pi+"
+    }
+
+#   do the filter work 
+    module   hltMinBiasPixelSelector = hltPixlMBSelector from "HLTrigger/special/data/hltPixlMBSelector.cfi"
+
+#   HLT prescaler
+    module   preMinBiasPixel = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
+    replace  preMinBiasPixel.prescaleFactor = 1
+
+#   the full sequence
+    sequence hltPixelMinBiasSelector = {hltBegin & preMinBiasPixel & l1seedMinBiasPixel & doLocalPixel & pixelTracksForMinBias & hltPixelCands , hltMinBiasPixelSelector}
+//
