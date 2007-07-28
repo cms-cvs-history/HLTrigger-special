@@ -19,8 +19,7 @@ replace preIsolTrack.prescaleFactor = 4
 
 ################# TRACKER LOCAL ################
 
-include "RecoLocalTracker/Configuration/data/RecoLocalTracker.cff"
-
+#include "RecoLocalTracker/Configuration/data/RecoLocalTracker.cff"
 include "RecoPixelVertexing/PixelTrackFitting/data/PixelTracks.cff"
 
 ####################### REGIONAL BASIC CLUSTERS #######################
@@ -49,7 +48,7 @@ include "HLTrigger/special/data/isolPixelTrackFilter.cfi"
         sequence l1SeedFilter = {l1sIsolTrack}
         sequence doEcal = {ecalLocalRecoSequence}
         sequence doEcalIsolInput = {regEcalCluProd, ecalIsolPartProd}
-        sequence doPixelReco = {pixeltrackerlocalreco}
+        sequence doPixelReco = {doLocalPixel}
         sequence doPixTrackInput = {pixelTracks, isolPixelTrackProd}
         sequence pixelTrackFilter = {isolPixelTrackFilter}
 
