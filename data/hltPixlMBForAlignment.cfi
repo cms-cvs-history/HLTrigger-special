@@ -1,0 +1,8 @@
+    module hltPixlMBForAlignment = HLTPixlMBForAlignmentFilter{
+       InputTag pixlTag = hltPixelCands
+       double   MinPt  = 5                    // MinPt currently not used (all pt accepted)
+       uint32   MinTrks = 2                   // Number of tracks required
+       double   MinSep = 1.0                  // minimum eta-phi separation between tracks
+       double   MinIsol = 0.05                // minimum eta-phi isolation around tracks
+    }
+

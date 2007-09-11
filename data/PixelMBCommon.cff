@@ -20,13 +20,3 @@
        string particleType = "pi+"
     }
 
-#   do the filter work 
-    module   hltMinBiasPixelSelector = hltPixlMBSelector from "HLTrigger/special/data/hltPixlMBSelector.cfi"
-
-#   HLT prescaler
-    module   preMinBiasPixel = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
-    replace  preMinBiasPixel.prescaleFactor = 1
-
-#   the full sequence
-    sequence hltPixelMinBiasSelector = {hltBegin & preMinBiasPixel & l1seedMinBiasPixel & doLocalPixel & pixelTracksForMinBias & hltPixelCands , hltMinBiasPixelSelector}
-//

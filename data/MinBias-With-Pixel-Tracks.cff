@@ -1,22 +1,5 @@
 //
-    include "HLTrigger/Configuration/data/common/HLTSetup.cff"
-
-    module pixelTracksForMinBias = pixelTracks from "RecoPixelVertexing/PixelTrackFitting/data/PixelTracks.cfi"
-#   request Pixel track finding with very low pt threshold
-    replace pixelTracksForMinBias.RegionFactoryPSet.RegionPSet.ptMin = 0.2
-
-#    alternative to the above. Seems to work (and be a bit more efficient due to ptMin=0.2->0.075), but not properly tested yet.
-#    module pixelTracksForMinBias = pixelLowPtTracksWithZPos from "RecoPixelVertexing/PixelLowPtUtilities/data/PixelLowPtTracksWithZPos.cfi"
-
-    module l1seedMinBiasPixel =  hltLevel1Seed from "HLTrigger/HLTfilters/data/hltLevel1Seed.cfi" 
-    replace l1seedMinBiasPixel.L1Seeds = {"L1_ZeroBias"}
-
-#   convert all pixel tracks to RecoChargedCandidates
-    module hltPixelCands = ConcreteChargedCandidateProducer{
-       InputTag src = pixelTracksForMinBias
-#      just pretend tracks are pi+, many will not really be...
-       string particleType = "pi+"
-    }
+    include "HLTrigger/special/data/PixelMBCommon.cff"
 
 #   do the filter work 
     module   hltMinBiasPixelFilter = hltPixlMBFilt from "HLTrigger/special/data/hltPixlMBFilt.cfi"

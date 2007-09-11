@@ -1,8 +1,0 @@
-    module hltPixlMBSelector = HLTPixlMBSelectFilter{
-       InputTag pixlTag = hltPixelCands
-       double   MinPt  = 3.0                  // MinPt currently not used (all pt accepted)
-       uint32   MinTrks = 3                   // Number of tracks required
-       double   MinSep = 1.0                  // minimum eta-phi separation between tracks
-       double   MinIsol = 0.3                 // minimum eta-phi isolation around tracks
-    }
-

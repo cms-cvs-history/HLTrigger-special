@@ -1,0 +1,13 @@
+//
+    include "HLTrigger/special/data/PixelMBCommon.cff"
+
+#   do the filter work 
+    module   hltPixelMBForAlignment = hltPixlMBForAlignment from "HLTrigger/special/data/hltPixlMBForAlignment.cfi"
+
+#   HLT prescaler
+    module   preMBForAlignment = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
+    replace  preMBForAlignment.prescaleFactor = 1
+
+#   the full sequence
+    sequence hltMBForAlignment = {hltBegin & preMBForAlignment & l1seedMinBiasPixel & doLocalPixel & pixelTracksForMinBias & hltPixelCands , hltPixelMBForAlignment}
+//
