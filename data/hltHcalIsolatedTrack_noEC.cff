@@ -62,4 +62,4 @@ include "HLTrigger/special/data/isolPixelTrackFilter.cfi"
 
 ###########################################################################
 
-sequence hltHcalIsolatedTrack = { hltBegin, l1SeedFilter, preIsolTrack, l2EcalIsolFilter & l3PixelIsolFilter}
+sequence hltHcalIsolatedTrack = { hltBegin, l1SeedFilter, preIsolTrack, l3PixelIsolFilter}
