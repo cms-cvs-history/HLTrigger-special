@@ -7,7 +7,7 @@ include "HLTrigger/Configuration/data/common/HLTSetup.cff"
 module  l1sIsolTrack = hltLevel1Seed from "HLTrigger/HLTfilters/data/hltLevel1Seed.cfi"
 replace l1sIsolTrack.L1Seeds = { "L1_SingleJet100" }
 
-####################### PRESCALER ###################
+####################### PRESCALERS ###################
 
 module preIsolTrack = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
 replace preIsolTrack.prescaleFactor = 1
@@ -63,3 +63,5 @@ include "HLTrigger/special/data/isolPixelTrackFilter.cfi"
 ###########################################################################
 
 sequence hltHcalIsolatedTrack = { hltBegin, l1SeedFilter, preIsolTrack, l2EcalIsolFilter & l3PixelIsolFilter}
+
+sequence hltHcalIsolatedTrackNoEcalIsol = { hltBegin, l1SeedFilter, preIsolTrack, l3PixelIsolFilter}
