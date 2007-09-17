@@ -1,5 +1,5 @@
     module hltPixlMBFilt = HLTPixlMBFilt{
-       InputTag pixlTag = hltPixelCands
+       InputTag pixlTag = hltPixlCands
        double   MinPt  = 0.0                  // MinPt currently not used (all pt accepted)
        uint32   MinTrks = 2                   // Number of tracks from same vertex required
        double   MinSep = 1.0                  // minimum eta-phi separation between tracks
