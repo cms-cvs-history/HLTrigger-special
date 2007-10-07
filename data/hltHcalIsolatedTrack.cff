@@ -5,7 +5,7 @@ include "HLTrigger/Configuration/data/common/HLTSetup.cff"
 ######## l1 seed filter #############
 
 module  l1sIsolTrack = hltLevel1GTSeed from "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
-replace l1sIsolTrack.L1SeedsLogicalExpression = "L1_SingleJet100"
+replace l1sIsolTrack.L1SeedsLogicalExpression = "L1_SingleJet100 OR L1_SingleTauJet100"
 
 ####################### PRESCALERS ###################
 
@@ -41,6 +41,7 @@ include "HLTrigger/special/data/ecalIsolFilter.cfi"
 ####################### ISOLATED PIXEL CANDS ##########################
 
 include "Calibration/HcalIsolatedTrackReco/data/isolPixelTrackProd.cfi"
+replace isolPixelTrackProd.L1GTSeedLabel=l1sIsolTrack
 
 ###################### ISOLATED PIXEL CAND FILTER ####################
 
