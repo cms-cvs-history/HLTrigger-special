@@ -25,14 +25,10 @@ replace preIsolTrackNoEcalIso.prescaleFactor = 1
 #include "RecoLocalTracker/Configuration/data/RecoLocalTracker.cff"
 include "RecoPixelVertexing/PixelTrackFitting/data/PixelTracks.cff"
 
-####################### REGIONAL BASIC CLUSTERS #######################
-
-include "Calibration/HcalIsolatedTrackReco/data/regEcalCluProd.cfi"
-replace regEcalCluProd.BarrelSeedThreshold=0.4
-
 ####################### ECAL ISOLATION PRODUCER ##############
 
 include "Calibration/HcalIsolatedTrackReco/data/ecalIsolPartProd.cfi"
+replace ecalIsolPartProd.L1GTSeedLabel=l1sIsolTrack
 
 ####################### ECAL ISOLATION FILTER ##########################
 
@@ -51,7 +47,7 @@ include "HLTrigger/special/data/isolPixelTrackFilter.cfi"
 
         sequence l1SeedFilter = {l1sIsolTrack}
         sequence doEcal = {ecalLocalRecoSequence}
-        sequence doEcalIsolInput = {regEcalCluProd, ecalIsolPartProd}
+        sequence doEcalIsolInput = { ecalIsolPartProd}
         sequence doPixelReco = {doLocalPixel}
         sequence doPixTrackInput = {pixelTracks, isolPixelTrackProd}
         sequence pixelTrackFilter = {isolPixelTrackFilter}
