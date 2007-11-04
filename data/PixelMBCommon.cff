@@ -1,5 +1,5 @@
 //
-    include "HLTrigger/Configuration/data/common/HLTSetup.cff"
+#   include "HLTrigger/Configuration/data/common/HLTSetup.cff"
 
 #   request Pixel track finding with very low pt threshold. Even if only high-pt tracks
 #   are selected, the low-Pt might be wanted to check isolation of the high-Pt track.

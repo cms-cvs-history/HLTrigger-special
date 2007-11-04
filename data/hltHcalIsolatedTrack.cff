@@ -1,6 +1,6 @@
 ###################### HLT setup ############################
 
-include "HLTrigger/Configuration/data/common/HLTSetup.cff"
+# include "HLTrigger/Configuration/data/common/HLTSetup.cff"
 
 ######## l1 seed filter #############
 
