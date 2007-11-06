@@ -46,7 +46,7 @@ include "HLTrigger/special/data/isolPixelTrackFilter.cfi"
 ######################################################################
 
         sequence l1SeedFilter = {l1sIsolTrack}
-        sequence doEcal = {ecalLocalRecoSequence}
+        sequence doEcal = {doLocalEcal}
         sequence doEcalIsolInput = { ecalIsolPartProd}
         sequence doPixelReco = {doLocalPixel}
         sequence doPixTrackInput = {pixelTracks, isolPixelTrackProd}
