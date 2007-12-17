@@ -17,3 +17,10 @@ include "RecoLocalCalo/EcalRecProducers/data/ecalPreshowerRecHit.cfi"
   include "Calibration/EcalAlCaRecoProducers/data/alcastreamHLTEcalRegPi0.cff"
 
 
+  module l1sEcalPi0 = hltLevel1GTSeed from "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
+  replace l1sEcalPi0.L1SeedsLogicalExpression = "L1_SingleJet15 OR L1_SingleJet20 OR L1_SingleJet30 OR L1_SingleJet50 OR L1_SingleJet70 OR L1_SingleJet100 OR L1_SingleJet150 OR L1_SingleJet200 OR L1_DoubleJet70 OR L1_DoubleJet100"
+
+  sequence doEcalPi0 = { doRegionalEgammaEcal, seqAlcastreamEcalPi0 }
+  sequence hltEcalPi0 = { hltBegin &  l1sEcalPi0 &  doEcalPi0 }
+
+
