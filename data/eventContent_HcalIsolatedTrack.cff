@@ -1,0 +1,30 @@
+# Full Event content
+block HLTHcalIsolatedTrackFEVT = {
+    untracked vstring outputCommands = { 
+   "keep *_ecalRecHit_*_*",
+   "keep *_ecalIsolPartProd_*_*",
+   "keep *_pixelTracks_*_*",
+   "keep *_isolPixelTrackProd_*_*",
+    }
+}
+# RECO content
+block HLTHcalIsolatedTrackRECO = {
+    untracked vstring outputCommands = { 
+   "keep *_ecalRecHit_*_*",
+   "keep *_ecalIsolPartProd_*_*",
+   "keep *_pixelTracks_*_*",
+   "keep *_isolPixelTrackProd_*_*",
+    }
+}
+# AOD content
+block HLTHcalIsolatedTrackAOD = {
+    untracked vstring outputCommands = { }
+    VInputTag triggerCollections = {
+        isolPixelTrackProd 
+    }
+
+    VInputTag triggerFilters = {
+	isolPixelTrackFilter
+    }
+}
+
