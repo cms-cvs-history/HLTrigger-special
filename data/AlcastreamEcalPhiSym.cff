@@ -1,0 +1,24 @@
+#/**
+#*  Definition of AlcaReco online selection for Ecal PhiSymmetry Calibration
+#*
+#*  \author Stefano Argiro
+#*  \Id $Id$
+#*/
+
+#event selection
+include "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
+replace hltLevel1GTSeed.L1SeedsLogicalExpression = "L1_ZeroBias"
+
+#unpacker
+include "EventFilter/EcalRawToDigiDev/data/EcalUnpackerData.cfi"
+replace ecalEBunpacker.DoRegional = false
+replace ecalEBunpacker.InputLabel = "rawDataCollector"
+
+#local reco
+include "RecoLocalCalo/EcalRecProducers/data/ecalLocalRecoSequence.cff"
+sequence ecalLocalRecoSequence_nops ={ecalWeightUncalibRecHit, ecalRecHit} 
+
+#create the alcareco stream with selected rechits
+include  "Calibration/EcalAlCaRecoProducers/data/alCaPhiSymRecHits.cfi"
+
+sequence alcaPhiSymSequence ={ecalEBunpacker,hltLevel1GTSeed,ecalLocalRecoSequence_nops,alCaPhiSymRecHits }
