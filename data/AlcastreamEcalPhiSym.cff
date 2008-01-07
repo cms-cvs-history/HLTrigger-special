@@ -2,7 +2,7 @@
 #*  Definition of AlcaReco online selection for Ecal PhiSymmetry Calibration
 #*
 #*  \author Stefano Argiro
-#*  \Id $Id: AlcastreamEcalPhiSym.cff,v 1.1 2008/01/06 21:52:17 argiro Exp $
+#*  \Id $Id: AlcastreamEcalPhiSym.cff,v 1.2 2008/01/07 14:52:13 argiro Exp $
 #*/
 
 #event selection
@@ -30,4 +30,4 @@ module alCaPhiSymStream = HLTEcalPhiSymFilter {
     double eCut_endcap = 0.75
 }
 
-sequence alcaPhiSymSequence ={ecalEBunpacker,hltLevel1GTSeed,ecalLocalRecoSequence_nops,alCaPhiSymStream }
+sequence alcaEcalPhiSymSequence ={ecalEBunpacker,hltLevel1GTSeed,ecalLocalRecoSequence_nops,alCaPhiSymStream }
