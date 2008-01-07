@@ -1,0 +1,19 @@
+#/**
+#*  Definition of AlcaReco online selection for Hcal PhiSymmetry Calibration
+#*
+#*  \author Stefano Argiro
+#*  \Id $Id: AlcastreamEcalPhiSym.cff,v 1.2 2008/01/07 14:52:13 argiro Exp $
+#*/
+
+#event selection
+include "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
+replace hltLevel1GTSeed.L1SeedsLogicalExpression = "L1_ZeroBias"
+
+#unpacker
+include  "EventFilter/HcalRawToDigi/data/HcalRawToDigi.cfi"
+replace hcalDigis.InputLabel = "rawDataCollector"
+
+#local reco
+include "RecoLocalCalo/Configuration/data/hcalLocalReco.cff"
+
+sequence alcaHcalPhiSymSequence ={hcalDigis & hcalLocalRecoSequence }

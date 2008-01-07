@@ -1,0 +1,9 @@
+#Event content for PhiSymmetry alcareco stream
+
+block HLTAlcaRecoHcalPhiSymStream = {
+    untracked vstring outputCommands = { 
+     "keep *_hbhereco_*_*",
+     "keep *_hfreco_*_* ", 
+     "keep *_horeco_*_*"
+    }
+}
