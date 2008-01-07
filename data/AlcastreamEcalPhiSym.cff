@@ -2,7 +2,7 @@
 #*  Definition of AlcaReco online selection for Ecal PhiSymmetry Calibration
 #*
 #*  \author Stefano Argiro
-#*  \Id $Id$
+#*  \Id $Id: AlcastreamEcalPhiSym.cff,v 1.1 2008/01/06 21:52:17 argiro Exp $
 #*/
 
 #event selection
@@ -19,6 +19,15 @@ include "RecoLocalCalo/EcalRecProducers/data/ecalLocalRecoSequence.cff"
 sequence ecalLocalRecoSequence_nops ={ecalWeightUncalibRecHit, ecalRecHit} 
 
 #create the alcareco stream with selected rechits
-include  "Calibration/EcalAlCaRecoProducers/data/alCaPhiSymRecHits.cfi"
+module alCaPhiSymStream = HLTEcalPhiSymFilter {
+    string VerbosityLevel = "ERROR"
+    string ecalRecHitsProducer = "ecalRecHit"
+    string barrelHitCollection = "EcalRecHitsEB"
+    string endcapHitCollection = "EcalRecHitsEE"
+    string phiSymBarrelHitCollection = "phiSymEcalRecHitsEB"
+    string phiSymEndcapHitCollection = "phiSymEcalRecHitsEE"
+    double eCut_barrel = 0.15
+    double eCut_endcap = 0.75
+}
 
-sequence alcaPhiSymSequence ={ecalEBunpacker,hltLevel1GTSeed,ecalLocalRecoSequence_nops,alCaPhiSymRecHits }
+sequence alcaPhiSymSequence ={ecalEBunpacker,hltLevel1GTSeed,ecalLocalRecoSequence_nops,alCaPhiSymStream }
