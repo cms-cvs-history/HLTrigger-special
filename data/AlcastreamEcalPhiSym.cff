@@ -2,20 +2,21 @@
 #*  Definition of AlcaReco online selection for Ecal PhiSymmetry Calibration
 #*
 #*  \author Stefano Argiro
-#*  \Id $Id: AlcastreamEcalPhiSym.cff,v 1.2 2008/01/07 14:52:13 argiro Exp $
+#*  \Id $Id: AlcastreamEcalPhiSym.cff,v 1.3 2008/01/07 15:44:11 argiro Exp $
 #*/
 
 #event selection
-include "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
-replace hltLevel1GTSeed.L1SeedsLogicalExpression = "L1_ZeroBias"
+module l1sEcalPhiSym = hltLevel1GTSeed from "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
+replace l1sEcalPhiSym.L1SeedsLogicalExpression = "L1_ZeroBias"
 
-#unpacker
-include "EventFilter/EcalRawToDigiDev/data/EcalUnpackerData.cfi"
-replace ecalEBunpacker.DoRegional = false
-replace ecalEBunpacker.InputLabel = "rawDataCollector"
+#prescaler
+module ecalPhiSymPresc = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
+replace ecalPhiSymPresc.prescaleFactor =1
+
+#unpacker configuration
+#replace ecalDigis.DoRegional = false
 
 #local reco
-include "RecoLocalCalo/EcalRecProducers/data/ecalLocalRecoSequence.cff"
 sequence ecalLocalRecoSequence_nops ={ecalWeightUncalibRecHit, ecalRecHit} 
 
 #create the alcareco stream with selected rechits
@@ -30,4 +31,11 @@ module alCaPhiSymStream = HLTEcalPhiSymFilter {
     double eCut_endcap = 0.75
 }
 
-sequence alcaEcalPhiSymSequence ={ecalEBunpacker,hltLevel1GTSeed,ecalLocalRecoSequence_nops,alCaPhiSymStream }
+sequence doEcalPhiSymSequence = {l1sEcalPhiSym,
+                                 ecalPhiSymPresc, 
+                                 ecalDigis,
+                                 ecalLocalRecoSequence_nops,
+                                 alCaPhiSymStream }
+
+sequence alcaEcalPhiSymSequence = {hltBegin &  doEcalPhiSymSequence }
+
