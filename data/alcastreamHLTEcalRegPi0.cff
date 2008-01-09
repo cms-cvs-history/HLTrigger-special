@@ -1,0 +1,8 @@
+
+  #------------------------------------------------
+  #AlCaReco filtering for pi0 calibration:
+  #------------------------------------------------
+  # create sequence for rechit filtering for pi0 calibration
+  include "HLTrigger/special/data/alCaPi0HLTRegRecHits.cfi"
+
+  sequence seqAlcastreamEcalPi0 = {alCaPi0RegRecHits}

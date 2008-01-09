@@ -1,0 +1,25 @@
+# AlCaPi0RecHits HLT filter
+module alCaPi0RegRecHits = HLTPi0RecHitsFilter
+{
+    string VerbosityLevel = "ERROR"
+
+    string ecalRecHitsProducer = "ecalRegionalEgammaRecHit"
+    string barrelHitCollection = "EcalRecHitsEB"
+    string pi0BarrelHitCollection = "pi0EcalRecHitsEB"
+
+    int32 gammaCandEtaSize = 21
+    int32 gammaCandPhiSize = 21
+
+    double clusSeedThr = 0.5	    		
+    int32 clusEtaSize = 3
+    int32 clusPhiSize = 3
+
+    double selePtGammaOne = 1.0	    		
+    double selePtGammaTwo = 1.0	    		
+    double selePtPi0 = 2.5	    		
+    double seleMinvMaxPi0 = 0.16
+    double seleMinvMinPi0 = 0.09
+    double seleXtalMinEnergy = 0.	
+    int32 seleNRHMax = 75
+
+}
