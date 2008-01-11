@@ -9,5 +9,5 @@
     replace  preMinBiasPixel.prescaleFactor = 1
 
 #   the full sequence
-    sequence hltMinBiasPixel = {hltBegin & preMinBiasPixel & l1seedMinBiasPixel & doLocalPixel & pixelTracksForMinBias & hltPixelCands , hltMinBiasPixelFilter}
+    sequence hltMinBiasPixel = {hltBegin & preMinBiasPixel & l1seedMinBiasPixel & doLocalPixel & pixelTrackingForMinBias & hltPixelCands , hltMinBiasPixelFilter}
 //

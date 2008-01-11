@@ -9,5 +9,5 @@
     replace  preMBForAlignment.prescaleFactor = 1
 
 #   the full sequence
-    sequence hltMBForAlignment = {hltBegin & preMBForAlignment & l1seedMinBiasPixel & doLocalPixel & pixelTracksForMinBias & hltPixelCands , hltPixelMBForAlignment}
+    sequence hltMBForAlignment = {hltBegin & preMBForAlignment & l1seedMinBiasPixel & doLocalPixel & pixelTrackingForMinBias & hltPixelCands , hltPixelMBForAlignment}
 //

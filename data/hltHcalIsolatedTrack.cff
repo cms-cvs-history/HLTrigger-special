@@ -1,6 +1,7 @@
 ###################### HLT setup ############################
 
 # include "HLTrigger/Configuration/data/common/HLTSetup.cff"
+# include "HLTrigger/special/data/HLTFullRecoForSpecial.cff"
 
 ######## l1 seed filter #############
 
@@ -23,7 +24,7 @@ replace preIsolTrackNoEcalIso.prescaleFactor = 1
 ################# TRACKER LOCAL ################
 
 #include "RecoLocalTracker/Configuration/data/RecoLocalTracker.cff"
-include "RecoPixelVertexing/PixelTrackFitting/data/PixelTracks.cff"
+# include "RecoPixelVertexing/PixelTrackFitting/data/PixelTracks.cff"
 
 ####################### ECAL ISOLATION PRODUCER ##############
 
@@ -49,7 +50,7 @@ include "HLTrigger/special/data/isolPixelTrackFilter.cfi"
         sequence doEcal = {doLocalEcal}
         sequence doEcalIsolInput = { ecalIsolPartProd}
         sequence doPixelReco = {doLocalPixel}
-        sequence doPixTrackInput = {pixelTracks, isolPixelTrackProd}
+        sequence doPixTrackInput = {pixelTrackingForIsol, isolPixelTrackProd}
         sequence pixelTrackFilter = {isolPixelTrackFilter}
 
 ########## L2 filtering on isolation in ECAL ##############################

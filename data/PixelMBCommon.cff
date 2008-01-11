@@ -1,14 +1,7 @@
 //
 #   include "HLTrigger/Configuration/data/common/HLTSetup.cff"
+#    include "HLTrigger/special/data/HLTFullRecoForSpecial.cff"
 
-#   request Pixel track finding with very low pt threshold. Even if only high-pt tracks
-#   are selected, the low-Pt might be wanted to check isolation of the high-Pt track.
-#   otherwise the ptMin here can be increased.
-    module pixelTracksForMinBias = pixelTracks from "RecoPixelVertexing/PixelTrackFitting/data/PixelTracks.cfi"
-    replace pixelTracksForMinBias.RegionFactoryPSet.RegionPSet.ptMin = 0.2
-
-#    alternative to the above. Seems to work (and be a bit more efficient due to ptMin=0.2->0.075), but not properly tested yet.
-#    module pixelTracksForMinBias = pixelLowPtTracksWithZPos from "RecoPixelVertexing/PixelLowPtUtilities/data/PixelLowPtTracksWithZPos.cfi"
 
     module l1seedMinBiasPixel =  hltLevel1GTSeed from "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi" 
     replace l1seedMinBiasPixel.L1SeedsLogicalExpression = "L1_ZeroBias"
