@@ -1,0 +1,37 @@
+//
+include "HLTrigger/special/data/eventContent_HcalIsolatedTrack.cff"
+include "HLTrigger/special/data/eventContent_AlcastreamEcalPhiSym.cff"
+include "HLTrigger/special/data/eventContent_AlcastreamHcalPhiSym.cff"
+
+# Full Event content for Special HLT paths
+block HLTSpecialFEVT = {
+    untracked vstring outputCommands = { }
+}
+replace HLTSpecialFEVT.outputCommands += HLTHcalIsolatedTrackFEVT.outputCommands
+replace HLTSpecialFEVT.outputCommands += HLTAlcaRecoPhiSymStreamFEVT.outputCommands
+replace HLTSpecialFEVT.outputCommands += HLTAlcaRecoHcalPhiSymStream.outputCommands
+
+# RECO content for Special HLT paths
+block HLTSpecialRECO = {
+    untracked vstring outputCommands = { }
+}
+replace HLTSpecialRECO.outputCommands += HLTHcalIsolatedTrackRECO.outputCommands
+replace HLTSpecialRECO.outputCommands += HLTAlcaRecoPhiSymStreamRECO.outputCommands
+replace HLTSpecialRECO.outputCommands += HLTAlcaRecoHcalPhiSymStream.outputCommands
+
+# AOD content for Special HLT paths
+block HLTSpecialAOD = {
+    untracked vstring outputCommands = { }
+    VInputTag triggerCollections = { }
+    VInputTag triggerFilters = { }
+}
+replace HLTSpecialAOD.outputCommands += HLTHcalIsolatedTrackAOD.outputCommands
+replace HLTSpecialAOD.outputCommands += HLTAlcaRecoPhiSymStreamAOD.outputCommands
+replace HLTSpecialAOD.outputCommands += HLTAlcaRecoHcalPhiSymStream.outputCommands
+
+replace HLTSpecialAOD.triggerCollections += HLTHcalIsolatedTrackAOD.triggerCollections
+replace HLTSpecialAOD.triggerCollections += HLTAlcaRecoPhiSymStreamAOD.triggerCollections
+replace HLTSpecialAOD.triggerCollections += HLTAlcaRecoHcalPhiSymStream.triggerCollections
+replace HLTSpecialAOD.triggerFilters     += HLTAlcaRecoPhiSymStreamAOD.triggerFilters
+replace HLTSpecialAOD.triggerFilters     += HLTHcalIsolatedTrackAOD.triggerFilters
+replace HLTSpecialAOD.triggerFilters     += HLTAlcaRecoHcalPhiSymStream.triggerFilters

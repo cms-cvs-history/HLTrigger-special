@@ -4,7 +4,7 @@ block HLTHcalIsolatedTrackFEVT = {
    "keep *_ecalRecHit_*_*",
    "keep *_ecalIsolPartProd_*_*",
    "keep *_pixelTracks_*_*",
-   "keep *_isolPixelTrackProd_*_*",
+   "keep *_isolPixelTrackProd_*_*"
     }
 }
 # RECO content
@@ -13,7 +13,7 @@ block HLTHcalIsolatedTrackRECO = {
    "keep *_ecalRecHit_*_*",
    "keep *_ecalIsolPartProd_*_*",
    "keep *_pixelTracks_*_*",
-   "keep *_isolPixelTrackProd_*_*",
+   "keep *_isolPixelTrackProd_*_*"
     }
 }
 # AOD content

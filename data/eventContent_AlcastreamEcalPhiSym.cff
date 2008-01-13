@@ -16,8 +16,6 @@ block HLTAlcaRecoPhiSymStreamRECO = {
 block HLTAlcaRecoPhiSymStreamAOD = {
     untracked vstring outputCommands = { }
 
-#    VInputTag triggerCollections = {
-#    }
-#    VInputTag triggerFilters = {
-#    }
+    VInputTag triggerCollections = { }
+    VInputTag triggerFilters = { }
 }

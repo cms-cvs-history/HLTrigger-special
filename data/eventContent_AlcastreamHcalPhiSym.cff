@@ -6,4 +6,6 @@ block HLTAlcaRecoHcalPhiSymStream = {
      "keep *_hfreco_*_* ", 
      "keep *_horeco_*_*"
     }
+    VInputTag triggerCollections = { }
+    VInputTag triggerFilters = { }
 }
