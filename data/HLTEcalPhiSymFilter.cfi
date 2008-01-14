@@ -1,0 +1,18 @@
+#
+# Configure HLT filter and alcareco stream for  
+# Ecal PhiSymmetry
+#
+# Author: Stefano Argiro
+# $Id$
+
+
+module alCaPhiSymStream = HLTEcalPhiSymFilter {
+
+    string VerbosityLevel = "ERROR"
+    string barrelHitCollection = ecalRecHit:EcalRecHitsEB
+    string endcapHitCollection = ecalRecHit:EcalRecHitsEE
+    string phiSymBarrelHitCollection = "phiSymEcalRecHitsEB"
+    string phiSymEndcapHitCollection = "phiSymEcalRecHitsEE"
+    double eCut_barrel = 0.15
+    double eCut_endcap = 0.75
+}
