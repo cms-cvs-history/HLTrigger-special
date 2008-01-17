@@ -2,14 +2,16 @@
 
 block HLTAlcaRecoPhiSymStreamFEVT = {
     untracked vstring outputCommands = { 
-     "keep *_alCaPhiSymStream_*_*"
+     "keep *_alCaPhiSymStream_phiSymEcalRecHitsEB_*",
+     "keep *_alCaPhiSymStream_phiSymEcalRecHitsEE_*"	
     }
 }
 
 
 block HLTAlcaRecoPhiSymStreamRECO = {
     untracked vstring outputCommands = { 
-     "keep *_alCaPhiSymStream_*_*"
+     "keep *_alCaPhiSymStream_phiSymEcalRecHitsEB_*",
+     "keep *_alCaPhiSymStream_phiSymEcalRecHitsEE_*"    
     }
 }
 
