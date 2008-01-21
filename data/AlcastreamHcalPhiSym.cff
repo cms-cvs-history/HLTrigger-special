@@ -1,19 +1,18 @@
-#/**
-#*  Definition of AlcaReco online selection for Hcal PhiSymmetry Calibration
-#*
-#*  \author Stefano Argiro
-#*  \Id $Id: AlcastreamEcalPhiSym.cff,v 1.2 2008/01/07 14:52:13 argiro Exp $
-#*/
-
 #event selection
-include "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
-replace hltLevel1GTSeed.L1SeedsLogicalExpression = "L1_ZeroBias"
+module l1sHcalPhiSym = hltLevel1GTSeed from "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
+replace l1sHcalPhiSym.L1SeedsLogicalExpression = "L1_ZeroBias"
 
-#unpacker
-include  "EventFilter/HcalRawToDigi/data/HcalRawToDigi.cfi"
-replace hcalDigis.InputLabel = "rawDataCollector"
+#prescaler
+module hcalPhiSymPresc = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
+replace hcalPhiSymPresc.prescaleFactor =1
 
-#local reco
-include "RecoLocalCalo/Configuration/data/hcalLocalReco.cff"
+#create the alcareco stream with selected rechits
+include "HLTrigger/special/data/HLTHcalPhiSymFilter.cfi"
 
-sequence alcaHcalPhiSymSequence ={hcalDigis & hcalLocalRecoSequence }
+sequence l1sPres = {l1sHcalPhiSym & hcalPhiSymPresc }
+
+sequence doHcalStream ={doLocalHcal & alCaHcalPhiSymStream }
+
+
+
+sequence alcaHcalPhiSymSequence ={hltBegin & l1sPres & doHcalStream}

@@ -1,11 +1,25 @@
-#Event content for PhiSymmetry alcareco stream
+#Event content for HCAL PhiSymmetry alcareco stream
 
-block HLTAlcaRecoHcalPhiSymStream = {
+block HLTAlcaRecoHcalPhiSymStreamFEVT = {
     untracked vstring outputCommands = { 
-     "keep *_hbhereco_*_*",
-     "keep *_hfreco_*_* ", 
-     "keep *_horeco_*_*"
+     "keep *_alCaHcalPhiSymStream_phiSymHcalRecHitsHBHE_*",
+     "keep *_alCaHcalPhiSymStream_phiSymHcalRecHitsHO_*",
+     "keep *_alCaHcalPhiSymStream_phiSymHcalRecHitsHF_*"	
     }
+}
+
+
+block HLTAlcaRecoHcalPhiSymStreamRECO = {
+    untracked vstring outputCommands = { 
+     "keep *_alCaHcalPhiSymStream_phiSymHcalRecHitsHBHE_*",
+     "keep *_alCaHcalPhiSymStream_phiSymHcalRecHitsHO_*",
+     "keep *_alCaHcalPhiSymStream_phiSymHcalRecHitsHF_*"    
+    }
+}
+
+block HLTAlcaRecoHcalPhiSymStreamAOD = {
+    untracked vstring outputCommands = { }
+
     VInputTag triggerCollections = { }
     VInputTag triggerFilters = { }
 }
