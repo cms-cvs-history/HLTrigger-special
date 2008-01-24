@@ -1,6 +1,6 @@
 #Event content for PhiSymmetry alcareco stream
 
-block HLTAlcaRecoPhiSymStreamFEVT = {
+block HLTAlcaRecoEcalPhiSymStreamFEVT = {
     untracked vstring outputCommands = { 
      "keep *_alCaPhiSymStream_phiSymEcalRecHitsEB_*",
      "keep *_alCaPhiSymStream_phiSymEcalRecHitsEE_*"	
@@ -8,14 +8,14 @@ block HLTAlcaRecoPhiSymStreamFEVT = {
 }
 
 
-block HLTAlcaRecoPhiSymStreamRECO = {
+block HLTAlcaRecoEcalPhiSymStreamRECO = {
     untracked vstring outputCommands = { 
      "keep *_alCaPhiSymStream_phiSymEcalRecHitsEB_*",
      "keep *_alCaPhiSymStream_phiSymEcalRecHitsEE_*"    
     }
 }
 
-block HLTAlcaRecoPhiSymStreamAOD = {
+block HLTAlcaRecoEcalPhiSymStreamAOD = {
     untracked vstring outputCommands = { }
 
     VInputTag triggerCollections = { }

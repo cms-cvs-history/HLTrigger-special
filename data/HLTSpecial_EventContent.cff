@@ -8,16 +8,16 @@ block HLTSpecialFEVT = {
     untracked vstring outputCommands = { }
 }
 replace HLTSpecialFEVT.outputCommands += HLTHcalIsolatedTrackFEVT.outputCommands
-replace HLTSpecialFEVT.outputCommands += HLTAlcaRecoPhiSymStreamFEVT.outputCommands
-replace HLTSpecialFEVT.outputCommands += HLTAlcaRecoHcalPhiSymStream.outputCommands
+replace HLTSpecialFEVT.outputCommands += HLTAlcaRecoEcalPhiSymStreamFEVT.outputCommands
+replace HLTSpecialFEVT.outputCommands += HLTAlcaRecoHcalPhiSymStreamFEVT.outputCommands
 
 # RECO content for Special HLT paths
 block HLTSpecialRECO = {
     untracked vstring outputCommands = { }
 }
 replace HLTSpecialRECO.outputCommands += HLTHcalIsolatedTrackRECO.outputCommands
-replace HLTSpecialRECO.outputCommands += HLTAlcaRecoPhiSymStreamRECO.outputCommands
-replace HLTSpecialRECO.outputCommands += HLTAlcaRecoHcalPhiSymStream.outputCommands
+replace HLTSpecialRECO.outputCommands += HLTAlcaRecoEcalPhiSymStreamRECO.outputCommands
+replace HLTSpecialRECO.outputCommands += HLTAlcaRecoHcalPhiSymStreamRECO.outputCommands
 
 # AOD content for Special HLT paths
 block HLTSpecialAOD = {
@@ -26,12 +26,12 @@ block HLTSpecialAOD = {
     VInputTag triggerFilters = { }
 }
 replace HLTSpecialAOD.outputCommands += HLTHcalIsolatedTrackAOD.outputCommands
-replace HLTSpecialAOD.outputCommands += HLTAlcaRecoPhiSymStreamAOD.outputCommands
-replace HLTSpecialAOD.outputCommands += HLTAlcaRecoHcalPhiSymStream.outputCommands
+replace HLTSpecialAOD.outputCommands += HLTAlcaRecoEcalPhiSymStreamAOD.outputCommands
+replace HLTSpecialAOD.outputCommands += HLTAlcaRecoHcalPhiSymStreamAOD.outputCommands
 
 replace HLTSpecialAOD.triggerCollections += HLTHcalIsolatedTrackAOD.triggerCollections
-replace HLTSpecialAOD.triggerCollections += HLTAlcaRecoPhiSymStreamAOD.triggerCollections
-replace HLTSpecialAOD.triggerCollections += HLTAlcaRecoHcalPhiSymStream.triggerCollections
-replace HLTSpecialAOD.triggerFilters     += HLTAlcaRecoPhiSymStreamAOD.triggerFilters
 replace HLTSpecialAOD.triggerFilters     += HLTHcalIsolatedTrackAOD.triggerFilters
-replace HLTSpecialAOD.triggerFilters     += HLTAlcaRecoHcalPhiSymStream.triggerFilters
+replace HLTSpecialAOD.triggerCollections += HLTAlcaRecoEcalPhiSymStreamAOD.triggerCollections
+replace HLTSpecialAOD.triggerFilters     += HLTAlcaRecoEcalPhiSymStreamAOD.triggerFilters
+replace HLTSpecialAOD.triggerCollections += HLTAlcaRecoHcalPhiSymStreamAOD.triggerCollections
+replace HLTSpecialAOD.triggerFilters     += HLTAlcaRecoHcalPhiSymStreamAOD.triggerFilters
