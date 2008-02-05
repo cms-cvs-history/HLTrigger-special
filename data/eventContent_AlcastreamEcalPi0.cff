@@ -1,0 +1,21 @@
+#Event content for Pi0 alcareco stream
+
+block HLTAlcaRecoEcalPi0StreamFEVT = {
+    untracked vstring outputCommands = { 
+     "keep *_*_pi0EcalRecHitsEB_*"
+    }
+}
+
+
+block HLTAlcaRecoEcalPi0StreamRECO = {
+    untracked vstring outputCommands = { 
+     "keep *_*_pi0EcalRecHitsEB_*"
+    }
+}
+
+block HLTAlcaRecoEcalPi0StreamAOD = {
+    untracked vstring outputCommands = { }
+
+    VInputTag triggerCollections = { }
+    VInputTag triggerFilters = { }
+}
