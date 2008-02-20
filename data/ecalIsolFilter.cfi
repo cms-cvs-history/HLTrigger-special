@@ -2,7 +2,7 @@
 
 module ecalIsolFilter = HLTEcalIsolationFilter 
     {
-     untracked InputTag EcalIsolatedParticleSource             = ecalIsolPartProd
+     InputTag EcalIsolatedParticleSource             = ecalIsolPartProd
      int32 MaxNhitOuterCone				       = 0
      int32 MaxNhitInnerCone				       = 1000
      double MaxEnergyInnerCone 				       = 10000
