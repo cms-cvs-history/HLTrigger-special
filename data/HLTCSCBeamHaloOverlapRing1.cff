@@ -4,6 +4,8 @@ replace level1seedHLTCSCBeamHaloOverlapRing1.L1SeedsLogicalExpression = "L1_Sing
 module prescaleHLTCSCBeamHaloOverlapRing1 = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
 replace prescaleHLTCSCBeamHaloOverlapRing1.prescaleFactor = 1
 
+include "RecoLocalMuon/CSCRecHit/data/csc2DRecHits.cfi"
+
 module overlapsHLTCSCBeamHaloOverlapRing1 = HLTCSCOverlapFilter {
     InputTag input = csc2DRecHits
     uint32 minHits = 4
@@ -14,4 +16,4 @@ module overlapsHLTCSCBeamHaloOverlapRing1 = HLTCSCOverlapFilter {
     bool fillHists = false
 }
 
-sequence HLTCSCBeamHaloOverlapRing1 = {level1seedHLTCSCBeamHaloOverlapRing1, prescaleHLTCSCBeamHaloOverlapRing1, overlapsHLTCSCBeamHaloOverlapRing1}
+sequence HLTCSCBeamHaloOverlapRing1 = {level1seedHLTCSCBeamHaloOverlapRing1, prescaleHLTCSCBeamHaloOverlapRing1, csc2DRecHits, overlapsHLTCSCBeamHaloOverlapRing1}

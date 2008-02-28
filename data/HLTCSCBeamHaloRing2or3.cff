@@ -4,6 +4,8 @@ replace level1seedHLTCSCBeamHaloRing2or3.L1SeedsLogicalExpression = "L1_SingleMu
 module prescaleHLTCSCBeamHaloRing2or3 = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
 replace prescaleHLTCSCBeamHaloRing2or3.prescaleFactor = 1
 
+include "RecoLocalMuon/CSCRecHit/data/csc2DRecHits.cfi"
+
 module filter23HLTCSCBeamHaloRing2or3 = HLTCSCRing2or3Filter {
     InputTag input = csc2DRecHits
     uint32 minHits = 4
@@ -11,4 +13,4 @@ module filter23HLTCSCBeamHaloRing2or3 = HLTCSCRing2or3Filter {
     double yWindow = 2.
 }
 
-sequence HLTCSCBeamHaloRing2or3 = {level1seedHLTCSCBeamHaloRing2or3, prescaleHLTCSCBeamHaloRing2or3, filter23HLTCSCBeamHaloRing2or3}
+sequence HLTCSCBeamHaloRing2or3 = {level1seedHLTCSCBeamHaloRing2or3, prescaleHLTCSCBeamHaloRing2or3, csc2DRecHits, filter23HLTCSCBeamHaloRing2or3}
