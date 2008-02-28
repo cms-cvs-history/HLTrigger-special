@@ -1,0 +1,6 @@
+module triggerTypeFilter  = TriggerTypeFilter
+   {
+      string InputLabel  ="source"
+      int32  SelectedTriggerType  = 2
+      int32  TriggerFedId =812
+   }
