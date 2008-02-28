@@ -5,4 +5,4 @@ replace level1seedHLTForwardBSC.L1SeedsLogicalExpression = "1"
 module prescaleHLTForwardBSC = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
 replace prescaleHLTForwardBSC.prescaleFactor = 1
 
-sequence HLTForwardBSC = {level1seedHLTForwardBSC, prescaleHLTForwardBSC}
+sequence hltForwardBSC = {level1seedHLTForwardBSC & prescaleHLTForwardBSC}

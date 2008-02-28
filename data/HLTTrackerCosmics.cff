@@ -5,4 +5,4 @@ replace level1seedHLTTrackerCosmics.L1SeedsLogicalExpression = "0"
 module prescaleHLTTrackerCosmics = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
 replace prescaleHLTTrackerCosmics.prescaleFactor = 1
 
-sequence HLTTrackerCosmics = {level1seedHLTTrackerCosmics, prescaleHLTTrackerCosmics}
+sequence hltTrackerCosmics = {level1seedHLTTrackerCosmics & prescaleHLTTrackerCosmics}
