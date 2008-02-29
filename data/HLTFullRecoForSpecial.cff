@@ -14,3 +14,8 @@ include "RecoPixelVertexing/PixelTrackFitting/data/PixelTracks.cff"
 
 sequence pixelTrackingForIsol = {pixelTracks}
 
+//
+// TriggerType filter:
+//
+module  filterTriggerType = triggerTypeFilter from "HLTrigger/special/data/TriggerTypeFilter.cfi"
+replace filterTriggerType.InputLabel = rawDataCollector
