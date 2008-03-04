@@ -3,12 +3,12 @@
 # Ecal PhiSymmetry
 #
 # Author: Stefano Argiro
-# $Id: HLTEcalPhiSymFilter.cfi,v 1.1 2008/01/14 10:08:16 argiro Exp $
+# $Id: HLTEcalPhiSymFilter.cfi,v 1.2 2008/01/14 10:45:28 argiro Exp $
 
 
 module alCaPhiSymStream = HLTEcalPhiSymFilter {
 
-    string VerbosityLevel = "ERROR"
+
     InputTag barrelHitCollection = ecalRecHit:EcalRecHitsEB
     InputTag endcapHitCollection = ecalRecHit:EcalRecHitsEE
     string phiSymBarrelHitCollection = "phiSymEcalRecHitsEB"
