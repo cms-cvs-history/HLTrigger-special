@@ -1,8 +1,6 @@
 # AlCaPi0RecHits HLT filter
 module alCaPi0RegRecHits = HLTPi0RecHitsFilter
 {
-    string VerbosityLevel = "ERROR"
-
     string ecalRecHitsProducer = "ecalRegionalEgammaRecHit"
     string barrelHitCollection = "EcalRecHitsEB"
     string pi0BarrelHitCollection = "pi0EcalRecHitsEB"
