@@ -1,5 +1,5 @@
 module level1seedHLTCSCBeamHaloOverlapRing1 = hltLevel1GTSeed from "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
-replace level1seedHLTCSCBeamHaloOverlapRing1.L1SeedsLogicalExpression = "L1_SingleBeamHaloMuon"
+replace level1seedHLTCSCBeamHaloOverlapRing1.L1SeedsLogicalExpression = "L1_SingleMuBeamHalo"
 
 module prescaleHLTCSCBeamHaloOverlapRing1 = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
 replace prescaleHLTCSCBeamHaloOverlapRing1.prescaleFactor = 1
