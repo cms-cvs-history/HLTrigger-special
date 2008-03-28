@@ -20,6 +20,6 @@ module alCaPi0RegRecHits = HLTPi0RecHitsFilter
     double seleMinvMaxPi0 = 0.16
     double seleMinvMinPi0 = 0.09
     double seleXtalMinEnergy = 0.	
-    int32 seleNRHMax = 1000
+    int32 seleNRHMax = 75
 
 }

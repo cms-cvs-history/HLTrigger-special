@@ -1,6 +1,6 @@
 module level1seedHLTTrackerCosmics = hltLevel1GTSeed from "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
 replace level1seedHLTTrackerCosmics.L1TechTriggerSeeding = true
-replace level1seedHLTTrackerCosmics.L1SeedsLogicalExpression = "28"
+replace level1seedHLTTrackerCosmics.L1SeedsLogicalExpression = "0"
 
 module prescaleHLTTrackerCosmics = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
 replace prescaleHLTTrackerCosmics.prescaleFactor = 1

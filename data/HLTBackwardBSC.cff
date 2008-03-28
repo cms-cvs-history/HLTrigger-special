@@ -1,6 +1,6 @@
 module level1seedHLTBackwardBSC = hltLevel1GTSeed from "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
 replace level1seedHLTBackwardBSC.L1TechTriggerSeeding = true
-replace level1seedHLTBackwardBSC.L1SeedsLogicalExpression = "38 OR 39 OR 43"
+replace level1seedHLTBackwardBSC.L1SeedsLogicalExpression = "2"
 
 module prescaleHLTBackwardBSC = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
 replace prescaleHLTBackwardBSC.prescaleFactor = 1
