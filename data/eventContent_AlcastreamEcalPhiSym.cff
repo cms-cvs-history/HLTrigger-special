@@ -3,9 +3,10 @@
 block HLTAlcaRecoEcalPhiSymStreamFEVT = {
     untracked vstring outputCommands = { 
      "keep *_alCaPhiSymStream_phiSymEcalRecHitsEB_*",
-     "keep *_alCaPhiSymStream_phiSymEcalRecHitsEE_*",
-     "keep *_l1GtUnpack_*_*",
-     "keep *_gtDigis_*_*"	
+     "keep *_alCaPhiSymStream_phiSymEcalRecHitsEE_*"
+#,
+#     "keep *_l1GtUnpack_*_*",
+#     "keep *_gtDigis_*_*"	
     }
 }
 
@@ -13,9 +14,10 @@ block HLTAlcaRecoEcalPhiSymStreamFEVT = {
 block HLTAlcaRecoEcalPhiSymStreamRECO = {
     untracked vstring outputCommands = { 
      "keep *_alCaPhiSymStream_phiSymEcalRecHitsEB_*",
-     "keep *_alCaPhiSymStream_phiSymEcalRecHitsEE_*",
-     "keep *_l1GtUnpack_*_*",
-     "keep *_gtDigis_*_*"	   
+     "keep *_alCaPhiSymStream_phiSymEcalRecHitsEE_*"
+#,
+#     "keep *_l1GtUnpack_*_*",
+#     "keep *_gtDigis_*_*"	   
     }
 }
 
