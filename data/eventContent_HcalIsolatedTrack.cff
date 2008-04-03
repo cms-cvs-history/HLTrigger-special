@@ -12,7 +12,7 @@ block HLTHcalIsolatedTrackFEVT = {
 block HLTHcalIsolatedTrackRECO = {
     untracked vstring outputCommands = { 
    "keep *_hltPixelTracks_*_*",
-   "keep *_hltIsolPixelTrackProd_*_*"
+   "keep *_hltIsolPixelTrackProd_*_*",
    "keep *_hltL1sIsoTrack_*_*",
    "keep *_hltGtDigis_*_*",
    "keep l1extraL1JetParticles_hltL1extraParticles_*_*"
