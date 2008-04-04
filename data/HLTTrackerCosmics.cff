@@ -1,3 +1,4 @@
+
 module level1seedHLTTrackerCosmics = hltLevel1GTSeed from "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
 replace level1seedHLTTrackerCosmics.L1TechTriggerSeeding = true
 replace level1seedHLTTrackerCosmics.L1SeedsLogicalExpression = "28"
@@ -5,4 +6,65 @@ replace level1seedHLTTrackerCosmics.L1SeedsLogicalExpression = "28"
 module prescaleHLTTrackerCosmics = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
 replace prescaleHLTTrackerCosmics.prescaleFactor = 1
 
-sequence hltTrackerCosmics = {level1seedHLTTrackerCosmics & prescaleHLTTrackerCosmics}
+sequence hltTrackerCosmics = { level1seedHLTTrackerCosmics & prescaleHLTTrackerCosmics }
+
+
+##################################################
+#addition for CR.xT runs.
+##################################################
+############### create all strip rechits ###########
+include "RecoLocalTracker/SiStripRecHitConverter/data/SiStripRecHitConverter.cfi"
+replace siStripMatchedRecHits.Regional = true
+
+module hltcosmicsRPHIrechitfilter = CountNumberOfSingleRecHit {
+	InputTag src = siStripMatchedRecHits:rphiRecHit
+	int32 min = -1	
+	int32 max = 50
+}
+
+module hltcosmicsSTEREOrechitfilter = CountNumberOfSingleRecHit {
+	InputTag src = siStripMatchedRecHits:stereoRecHit
+	int32 min = -1
+	int32 max = 50
+}
+
+module hltcosmicsMATCHEDrechitfilter = CountNumberOfMatchedRecHit {
+	InputTag src = siStripMatchedRecHits:matchedRecHit
+	int32 min = -1
+	int32 max = 50
+}
+
+sequence hltTrackerCosmicsRecHits = { doLocalTracker & siStripMatchedRecHits }
+sequence hltTrackerCosmicsRecHitsFilter = { hltcosmicsRPHIrechitfilter & hltcosmicsSTEREOrechitfilter & hltcosmicsMATCHEDrechitfilter }
+
+include "HLTrigger/special/data/CosmicsCoTF_ForHLT.cff"
+include "HLTrigger/special/data/CosmicsCTF_ForHLT.cff"
+include "HLTrigger/special/data/CosmicsRS_ForHLT.cff"
+
+sequence hltTrackerCosmicsCoTF = {
+	hltTrackerCosmicsRecHits & hltTrackerCosmicsRecHitsFilter &
+	hltTrackerCosmicsSeedsCoTF & hltTrackerCosmicsSeedsFilterCoTF &
+	hltTrackerCosmicsTracksCoTF & hltTrackerCosmicsTracksFilterCoTF
+}
+sequence hltTrackerCosmicsRecoCoTF = { hltTrackerCosmicsRecHits & hltTrackerCosmicsSeedsCoTF & hltTrackerCosmicsTracksCoTF }
+
+sequence hltTrackerCosmicsCTF = {
+	hltTrackerCosmicsRecHits & hltTrackerCosmicsRecHitsFilter &
+	hltTrackerCosmicsSeedsCTF & hltTrackerCosmicsSeedsFilterCTF &
+	hltTrackerCosmicsTracksCTF & hltTrackerCosmicsTracksFilterCTF
+}
+sequence hltTrackerCosmicsRecoCTF = { hltTrackerCosmicsRecHits & hltTrackerCosmicsSeedsCTF & hltTrackerCosmicsTracksCTF }
+
+sequence hltTrackerCosmicsRS = {
+	hltTrackerCosmicsRecHits & hltTrackerCosmicsRecHitsFilter &
+	hltTrackerCosmicsSeedsRS & hltTrackerCosmicsSeedsFilterRS &
+	hltTrackerCosmicsTracksRS & hltTrackerCosmicsTracksFilterRS
+}
+sequence hltTrackerCosmicsRecoRS = { hltTrackerCosmicsRecHits & hltTrackerCosmicsSeedsRS & hltTrackerCosmicsTracksRS }
+
+#to define paths
+#path CandHLTTrackerCosmicsCoTF = { hltTrackerCosmicsCoTF & hltEnd }
+#path CandHLTTrackerCosmicsCTF = { hltTrackerCosmicsCTF & hltEnd }
+#path CandHLTTrackerCosmicsRS = { hltTrackerCosmicsRS & hltEnd }
+
+

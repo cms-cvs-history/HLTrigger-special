@@ -1,0 +1,63 @@
+# roads
+include "RecoTracker/RoadMapMakerESProducer/data/RoadMapMakerESProducerP5.cff"
+
+module  roadSearchSeedsP5            = roadSearchSeeds from "RecoTracker/RoadSearchSeedFinder/data/RoadSearchSeeds.cfi"
+replace roadSearchSeedsP5.Mode       = "STRAIGHT-LINE"
+replace roadSearchSeedsP5.CosmicTracking = true
+replace roadSearchSeedsP5.RoadsLabel = "P5"
+replace roadSearchSeedsP5.InnerSeedRecHitAccessMode      = "STANDARD"
+replace roadSearchSeedsP5.InnerSeedRecHitAccessUseRPhi   = true
+replace roadSearchSeedsP5.InnerSeedRecHitAccessUseStereo = true
+replace roadSearchSeedsP5.OuterSeedRecHitAccessMode      = "STANDARD"
+replace roadSearchSeedsP5.OuterSeedRecHitAccessUseRPhi   = true
+replace roadSearchSeedsP5.OuterSeedRecHitAccessUseStereo = true
+#remove cut on number of clusters
+#replace roadSearchSeedsP5.MaxNumberOfCosmicClusters = 0
+
+
+#include "RecoTracker/RoadSearchCloudMaker/data/RoadSearchCloudsP5.cff"
+# RoadSearchCloudMaker
+module  roadSearchCloudsP5                                    = roadSearchClouds from "RecoTracker/RoadSearchCloudMaker/data/RoadSearchClouds.cfi"
+replace roadSearchCloudsP5.RoadsLabel                            = "P5"
+replace roadSearchCloudsP5.SeedProducer                          = roadSearchSeedsP5
+replace roadSearchCloudsP5.UsePixelsinRS                         = false
+replace roadSearchCloudsP5.UseRphiRecHits                        = true
+replace roadSearchCloudsP5.UseStereoRecHits                      = true
+replace roadSearchCloudsP5.scalefactorRoadSeedWindow             = 150
+replace roadSearchCloudsP5.MinimumHalfRoad                       = 3.3
+replace roadSearchCloudsP5.RPhiRoadSize                          = 5.
+replace roadSearchCloudsP5.MinimalFractionOfUsedLayersPerCloud   = 0.3   #standard: 0.5
+replace roadSearchCloudsP5.MaximalFractionOfMissedLayersPerCloud = 0.8   #standard: 0.3
+replace roadSearchCloudsP5.MaximalFractionOfConsecutiveMissedLayersPerCloud   = 0.35  #standard:0.15
+replace roadSearchCloudsP5.IncreaseMaxNumberOfConsecutiveMissedLayersPerCloud = 0
+replace roadSearchCloudsP5.IncreaseMaxNumberOfMissedLayersPerCloud            = 0
+replace roadSearchCloudsP5.StraightLineNoBeamSpotCloud                        = true
+
+
+module  rsTrackCandidatesP5                              = rsTrackCandidates from "RecoTracker/RoadSearchTrackCandidateMaker/data/RoadSearchTrackCandidates.cfi"
+replace rsTrackCandidatesP5.CloudProducer                = roadSearchCloudsP5
+replace rsTrackCandidatesP5.MeasurementTrackerName       = ""
+replace rsTrackCandidatesP5.StraightLineNoBeamSpotCloud  = true
+replace rsTrackCandidatesP5.CosmicTrackMerging           = true
+replace rsTrackCandidatesP5.HitChi2Cut                   = 30.0
+replace rsTrackCandidatesP5.NumHitCut                    = 4 #CHANGE TO 5
+replace rsTrackCandidatesP5.MinimumChunkLength           = 2
+replace rsTrackCandidatesP5.nFoundMin                    = 2
+
+module  rsWithMaterialTracksP5                   = rsWithMaterialTracks from "RecoTracker/TrackProducer/data/RSFinalFitWithMaterial.cfi"
+replace rsWithMaterialTracksP5.src               = "rsTrackCandidatesP5"
+replace rsWithMaterialTracksP5.beamSpot = offlineBeamSpot
+
+sequence hltTrackerCosmicsSeedsRS = { roadSearchSeedsP5 }
+module hltTrackerCosmicsSeedsFilterRS = CountNumberOfRoadSearchSeed {
+	InputTag src = roadSearchSeedsP5
+	int32 min = -1
+	int32 max = 50
+}
+
+sequence hltTrackerCosmicsTracksRS = { roadSearchCloudsP5 & rsTrackCandidatesP5 & offlineBeamSpot & rsWithMaterialTracksP5 }
+module hltTrackerCosmicsTracksFilterRS = CountNumberOfTrack {
+	InputTag src = rsWithMaterialTracksP5
+	int32 min = 1
+	int32 max = 1000
+}

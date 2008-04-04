@@ -1,0 +1,38 @@
+include "RecoTracker/SpecialSeedGenerators/data/CombinatorialSeedGeneratorForCosmicsP5.cff"
+es_module ckfBaseTrajectoryFilterP5 = trajectoryFilterESProducer from "TrackingTools/TrajectoryFiltering/data/TrajectoryFilterESProducer.cfi"
+replace ckfBaseTrajectoryFilterP5.ComponentName = "ckfBaseTrajectoryFilterP5"
+
+es_module CkfTrajectoryBuilderP5 = CkfTrajectoryBuilder from "RecoTracker/CkfPattern/data/CkfTrajectoryBuilderESProducer.cfi"
+replace CkfTrajectoryBuilderP5.MeasurementTrackerName = ""
+replace CkfTrajectoryBuilderP5.ComponentName = "CkfTrajectoryBuilderP5"
+replace CkfTrajectoryBuilderP5.trajectoryFilterName   = "ckfBaseTrajectoryFilterP5"
+
+module ckfTrackCandidatesP5 = ckfTrackCandidates from "RecoTracker/CkfPattern/data/CkfTrackCandidates.cfi"
+replace ckfTrackCandidatesP5.NavigationSchool = "CosmicNavigationSchool"
+replace ckfTrackCandidatesP5.TrajectoryBuilder        = "CkfTrajectoryBuilderP5"
+replace ckfTrackCandidatesP5.SeedProducer         = "combinatorialcosmicseedfinderP5"
+
+es_module FittingSmootherRKP5 = KFFittingSmoother from "TrackingTools/TrackFitters/data/KFFittingSmootherESProducer.cfi"
+replace FittingSmootherRKP5.ComponentName = "FittingSmootherRKP5"
+replace FittingSmootherRKP5.Fitter = "FitterRK"
+replace FittingSmootherRKP5.Smoother = "SmootherRK"
+replace FittingSmootherRKP5.MinNumberOfHits = 4
+
+module ctfWithMaterialTracksP5 = ctfWithMaterialTracks from "RecoTracker/TrackProducer/data/CTFFinalFitWithMaterial.cfi"
+replace ctfWithMaterialTracksP5.src = ckfTrackCandidatesP5
+replace ctfWithMaterialTracksP5.Fitter = "FittingSmootherRKP5"
+replace ctfWithMaterialTracksP5.beamSpot = offlineBeamSpot
+
+sequence hltTrackerCosmicsSeedsCTF = { combinatorialcosmicseedfinderP5 }
+module hltTrackerCosmicsSeedsFilterCTF = CountNumberOfTrajectorySeed {
+	InputTag src = combinatorialcosmicseedfinderP5
+	int32 min = -1
+	int32 max = 50
+}
+
+sequence hltTrackerCosmicsTracksCTF = { ckfTrackCandidatesP5 & offlineBeamSpot & ctfWithMaterialTracksP5 }
+module hltTrackerCosmicsTracksFilterCTF = CountNumberOfTrack {
+	InputTag src = ctfWithMaterialTracksP5
+	int32 min = 1
+	int32 max = 1000
+}
