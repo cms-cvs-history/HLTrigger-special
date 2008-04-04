@@ -3,7 +3,8 @@ include "RecoTracker/RoadMapMakerESProducer/data/RoadMapMakerESProducerP5.cff"
 
 module  roadSearchSeedsP5            = roadSearchSeeds from "RecoTracker/RoadSearchSeedFinder/data/RoadSearchSeeds.cfi"
 replace roadSearchSeedsP5.Mode       = "STRAIGHT-LINE"
-replace roadSearchSeedsP5.CosmicTracking = true
+replace roadSearchSeedsP5.doClusterCheck = true
+replace roadSearchSeedsP5.ClusterCollectionLabel = SiStripRawToClustersFacility 
 replace roadSearchSeedsP5.RoadsLabel = "P5"
 replace roadSearchSeedsP5.InnerSeedRecHitAccessMode      = "STANDARD"
 replace roadSearchSeedsP5.InnerSeedRecHitAccessUseRPhi   = true
@@ -49,15 +50,15 @@ replace rsWithMaterialTracksP5.src               = "rsTrackCandidatesP5"
 replace rsWithMaterialTracksP5.beamSpot = offlineBeamSpot
 
 sequence hltTrackerCosmicsSeedsRS = { roadSearchSeedsP5 }
-module hltTrackerCosmicsSeedsFilterRS = CountNumberOfRoadSearchSeed {
+module hltTrackerCosmicsSeedsFilterRS = HLTCountNumberOfRoadSearchSeed {
 	InputTag src = roadSearchSeedsP5
-	int32 min = -1
-	int32 max = 50
+	int32 MinN = -1
+	int32 MaxN = 50
 }
 
 sequence hltTrackerCosmicsTracksRS = { roadSearchCloudsP5 & rsTrackCandidatesP5 & offlineBeamSpot & rsWithMaterialTracksP5 }
-module hltTrackerCosmicsTracksFilterRS = CountNumberOfTrack {
+module hltTrackerCosmicsTracksFilterRS = HLTCountNumberOfTrack {
 	InputTag src = rsWithMaterialTracksP5
-	int32 min = 1
-	int32 max = 1000
+	int32 MinN = 1
+	int32 MaxN = 1000
 }

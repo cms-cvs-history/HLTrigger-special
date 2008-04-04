@@ -1,17 +1,18 @@
 include "RecoTracker/SpecialSeedGenerators/data/CosmicSeedP5Pairs.cff"
 include "RecoTracker/SingleTrackPattern/data/CosmicTrackFinderP5.cff"
 
+replace cosmicseedfinderP5.ClusterCollectionLabel = SiStripRawToClustersFacility
 sequence hltTrackerCosmicsSeedsCoTF = { cosmicseedfinderP5 }
-module hltTrackerCosmicsSeedsFilterCoTF = CountNumberOfTrajectorySeed {
+module hltTrackerCosmicsSeedsFilterCoTF = HLTCountNumberOfTrajectorySeed {
 	InputTag src = cosmicseedfinderP5
-	int32 min = -1
-	int32 max = 50
+	int32 MinN = -1
+	int32 MaxN = 50
 }
 
 sequence hltTrackerCosmicsTracksCoTF = { cosmictrackfinderP5 }
-module hltTrackerCosmicsTracksFilterCoTF = CountNumberOfTrack {
+module hltTrackerCosmicsTracksFilterCoTF = HLTCountNumberOfTrack {
 	InputTag src = cosmictrackfinderP5
-	int32 min = 1
-	int32 max = 1000
+	int32 MinN = 1
+	int32 MaxN = 1000
 }
 
