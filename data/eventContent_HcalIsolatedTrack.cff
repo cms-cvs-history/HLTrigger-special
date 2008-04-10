@@ -23,11 +23,11 @@ block HLTHcalIsolatedTrackRECO = {
 block HLTHcalIsolatedTrackAOD = {
     untracked vstring outputCommands = { }
     VInputTag triggerCollections = {
-        hltIsolPixelTrackProd 
+	hltIsolPixelTrackProd
     }
 
     VInputTag triggerFilters = {
-	isolPixelTrackFilter
+	hltIsolPixelTrackFilter
     }
 }
 

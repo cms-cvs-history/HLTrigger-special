@@ -20,8 +20,9 @@ block HLTAlcaRecoEcalPhiSymStreamRECO = {
 }
 
 block HLTAlcaRecoEcalPhiSymStreamAOD = {
-    untracked vstring outputCommands = { }
+    untracked vstring outputCommands = { 
+}
 
-    VInputTag triggerCollections = { }
-    VInputTag triggerFilters = { }
+    VInputTag triggerCollections = { hltEcalRecHit:EcalRecHitsEB, hltEcalRecHit:EcalRecHitsEE}
+    VInputTag triggerFilters = {hltAlCaPhiSymStream }
 }
