@@ -23,6 +23,6 @@ block HLTAlcaRecoEcalPhiSymStreamAOD = {
     untracked vstring outputCommands = { 
 }
 
-    VInputTag triggerCollections = { hltEcalRecHit:EcalRecHitsEB, hltEcalRecHit:EcalRecHitsEE}
-    VInputTag triggerFilters = {hltAlCaPhiSymStream }
+    VInputTag triggerCollections = {}
+    VInputTag triggerFilters = {}
 }

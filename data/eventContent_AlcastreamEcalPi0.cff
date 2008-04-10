@@ -16,6 +16,6 @@ block HLTAlcaRecoEcalPi0StreamRECO = {
 block HLTAlcaRecoEcalPi0StreamAOD = {
     untracked vstring outputCommands = { }
 
-    VInputTag triggerCollections = {hltEcalRegionalEgammaRecHit:EcalRecHitsEB }
-    VInputTag triggerFilters = {hltAlCaPi0RegRecHits }
+    VInputTag triggerCollections = { }
+    VInputTag triggerFilters = { }
 }
