@@ -2,18 +2,18 @@
 
 block HLTAlcaRecoHcalPhiSymStreamFEVT = {
     untracked vstring outputCommands = { 
-     "keep *_hltAlCaHcalPhiSymStream_phiSymHcalRecHitsHBHE_*",
-     "keep *_hltAlCaHcalPhiSymStream_phiSymHcalRecHitsHO_*",
-     "keep *_hltAlCaHcalPhiSymStream_phiSymHcalRecHitsHF_*"	
+     "keep *_alCaHcalPhiSymStream_phiSymHcalRecHitsHBHE_*",
+     "keep *_alCaHcalPhiSymStream_phiSymHcalRecHitsHO_*",
+     "keep *_alCaHcalPhiSymStream_phiSymHcalRecHitsHF_*"	
     }
 }
 
 
 block HLTAlcaRecoHcalPhiSymStreamRECO = {
     untracked vstring outputCommands = { 
-     "keep *_hltAlCaHcalPhiSymStream_phiSymHcalRecHitsHBHE_*",
-     "keep *_hltAlCaHcalPhiSymStream_phiSymHcalRecHitsHO_*",
-     "keep *_hltAlCaHcalPhiSymStream_phiSymHcalRecHitsHF_*"    
+     "keep *_alCaHcalPhiSymStream_phiSymHcalRecHitsHBHE_*",
+     "keep *_alCaHcalPhiSymStream_phiSymHcalRecHitsHO_*",
+     "keep *_alCaHcalPhiSymStream_phiSymHcalRecHitsHF_*"    
     }
 }
 

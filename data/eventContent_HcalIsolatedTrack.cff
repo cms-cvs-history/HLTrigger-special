@@ -1,29 +1,26 @@
 # Full Event content
 block HLTHcalIsolatedTrackFEVT = {
     untracked vstring outputCommands = { 
-   "keep *_hltPixelTracks_*_*",
-   "keep *_hltIsolPixelTrackProd_*_*",
-   "keep *_hltL1sIsoTrack_*_*",
-   "keep *_hltGtDigis_*_*",
-   "keep l1extraL1JetParticles_hltL1extraParticles_*_*"
+   "keep *_ecalRecHit_*_*",
+   "keep *_ecalIsolPartProd_*_*",
+   "keep *_pixelTracks_*_*",
+   "keep *_isolPixelTrackProd_*_*"
     }
 }
 # RECO content
 block HLTHcalIsolatedTrackRECO = {
     untracked vstring outputCommands = { 
-   "keep *_hltPixelTracks_*_*",
-   "keep *_hltIsolPixelTrackProd_*_*",
-   "keep *_hltL1sIsoTrack_*_*",
-   "keep *_hltGtDigis_*_*",
-   "keep l1extraL1JetParticles_hltL1extraParticles_*_*"
-
+   "keep *_ecalRecHit_*_*",
+   "keep *_ecalIsolPartProd_*_*",
+   "keep *_pixelTracks_*_*",
+   "keep *_isolPixelTrackProd_*_*"
     }
 }
 # AOD content
 block HLTHcalIsolatedTrackAOD = {
     untracked vstring outputCommands = { }
     VInputTag triggerCollections = {
-        hltIsolPixelTrackProd 
+        isolPixelTrackProd 
     }
 
     VInputTag triggerFilters = {
