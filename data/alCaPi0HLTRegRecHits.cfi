@@ -4,7 +4,7 @@ module alCaPi0RegRecHits = HLTPi0RecHitsFilter
 //    string ecalRecHitsProducer = "ecalRegionalEgammaRecHit"
 //    string barrelHitCollection = "EcalRecHitsEB"
 //   replace the 2 strings with 1 InputTag of form label:instance
-    InputTag barrelHits = ecalRegionalEgammaPi0RecHit:EcalRecHitsPi0EB
+    InputTag barrelHits = ecalRegionalEgammaRecHit:EcalRecHitsEB
     string pi0BarrelHitCollection = "pi0EcalRecHitsEB"
 
     int32 gammaCandEtaSize = 9
