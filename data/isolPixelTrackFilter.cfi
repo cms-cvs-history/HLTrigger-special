@@ -2,9 +2,11 @@
 
 module isolPixelTrackFilter = HLTPixelIsolTrackFilter 
     {
-     InputTag candTag              = isolPixelTrackProd
+     InputTag candTag                        = isolPixelTrackProd
      double MinPtTrack                       = 20
      double MaxPtNearby                      = 2
-     double MaxEtaTrack			     = 1.3
+     double MaxEtaTrack	                     = 1.9
+     bool filterTrackEnergy		     = false
+     double MinEnergyTrack 	     	     = 15
     }
 
