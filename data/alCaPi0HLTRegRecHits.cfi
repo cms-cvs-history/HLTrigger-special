@@ -4,7 +4,7 @@ module alCaPi0RegRecHits = HLTPi0RecHitsFilter
 //    string ecalRecHitsProducer = "ecalRegionalEgammaRecHit"
 //    string barrelHitCollection = "EcalRecHitsEB"
 //   replace the 2 strings with 1 InputTag of form label:instance
-    InputTag barrelHits = ecalRegionalEgammaRecHit:EcalRecHitsEB
+    InputTag barrelHits = ecalRegionalEgammaPi0RecHit:EcalRecHitsPi0EB
     string pi0BarrelHitCollection = "pi0EcalRecHitsEB"
 
     int32 gammaCandEtaSize = 9
@@ -26,5 +26,9 @@ module alCaPi0RegRecHits = HLTPi0RecHitsFilter
     double seleMinvMinPi0 = 0.06
     double seleXtalMinEnergy = 0.	
     int32 seleNRHMax = 1000
+    bool ParameterLogWeighted = true
+    double ParameterX0 = 0.89
+    double ParameterT0_barl = 5.7
+    double ParameterW0 = 4.2
 
 }
