@@ -1,6 +1,9 @@
 # Full Event content
 block HLTHcalIsolatedTrackFEVT = {
     untracked vstring outputCommands = { 
+   "keep *_hltSubdetFED_*_*",
+   "keep *_hltEcalRegFED_*_*",
+   "keep *_hltSiStripRegFED_*_*",
    "keep *_hltPixelTracks_*_*",
    "keep *_hltIsolPixelTrackProd_*_*",
    "keep *_hltL1sIsoTrack_*_*",
@@ -11,6 +14,9 @@ block HLTHcalIsolatedTrackFEVT = {
 # RECO content
 block HLTHcalIsolatedTrackRECO = {
     untracked vstring outputCommands = { 
+   "keep *_hltSubdetFED_*_*",
+   "keep *_hltEcalRegFED_*_*",
+   "keep *_hltSiStripRegFED_*_*",
    "keep *_hltPixelTracks_*_*",
    "keep *_hltIsolPixelTrackProd_*_*",
    "keep *_hltL1sIsoTrack_*_*",
