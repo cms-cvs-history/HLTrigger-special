@@ -1,8 +1,0 @@
-module level1seedHLTForwardBSC = hltLevel1GTSeed from "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
-replace level1seedHLTForwardBSC.L1TechTriggerSeeding = true
-replace level1seedHLTForwardBSC.L1SeedsLogicalExpression = "36 OR 37 OR 42"
-
-module prescaleHLTForwardBSC = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
-replace prescaleHLTForwardBSC.prescaleFactor = 1
-
-sequence hltForwardBSC = {level1seedHLTForwardBSC & prescaleHLTForwardBSC}
