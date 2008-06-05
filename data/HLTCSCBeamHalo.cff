@@ -1,9 +1,0 @@
-module level1seedHLTCSCBeamHalo = hltLevel1GTSeed from "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
-//replace level1seedHLTCSCBeamHalo.L1SeedsLogicalExpression = "L1_SingleMuBeamHalo"
-replace level1seedHLTCSCBeamHalo.L1TechTriggerSeeding = true
-replace level1seedHLTCSCBeamHalo.L1SeedsLogicalExpression = "3"
-
-module prescaleHLTCSCBeamHalo = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
-replace prescaleHLTCSCBeamHalo.prescaleFactor = 1
-
-sequence hltCSCBeamHalo = {level1seedHLTCSCBeamHalo & prescaleHLTCSCBeamHalo}
