@@ -3,7 +3,7 @@
 # Ecal PhiSymmetry
 #
 # Author: Stefano Argiro
-# $Id: HLTEcalPhiSymFilter.cfi,v 1.2 2008/01/14 10:45:28 argiro Exp $
+# $Id: HLTEcalPhiSymFilter.cfi,v 1.3 2008/03/04 16:38:12 argiro Exp $
 
 
 module alCaPhiSymStream = HLTEcalPhiSymFilter {
@@ -14,5 +14,5 @@ module alCaPhiSymStream = HLTEcalPhiSymFilter {
     string phiSymBarrelHitCollection = "phiSymEcalRecHitsEB"
     string phiSymEndcapHitCollection = "phiSymEcalRecHitsEE"
     double eCut_barrel = 0.15
-    double eCut_endcap = 0.75
+    double eCut_endcap = 0.650
 }
