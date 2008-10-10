@@ -13,7 +13,7 @@
 //
 // Original Author:  Bryan DAHMES
 //         Created:  Wed Sep 19 16:21:29 CEST 2007
-// $Id: FEDSizeFilter.cc,v 1.1 2008/09/15 17:12:32 mzanetti Exp $
+// $Id: FEDSizeFilter.cc,v 1.2 2008/09/17 12:04:35 mzanetti Exp $
 //
 //
 
@@ -92,15 +92,10 @@ FEDSizeFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup) {
         edm::LogWarning("FEDSizeFilter") << RawCollection_ << " not available";
     }
     
-    bool aboveThreshold = false ; 
-    unsigned int totalFEDsize = 0 ; 
-    for (unsigned int i=fedStart_; i<=fedStop_; i++) {
-        totalFEDsize += theRaw->FEDData(i).size() ; 
-    }
-
-    if ( totalFEDsize > threshold_ ) aboveThreshold = true ; 
-    
-    return aboveThreshold ; 
+    for (unsigned int i=fedStart_; i<=fedStop_; i++)
+        if ( theRaw->FEDData(i).size() > threshold_ ) return true ; 
+        
+    return false ; 
 }
 
 // ------------ method called once each job just before starting event loop  ------------
