@@ -7,13 +7,14 @@
 #include "HLTrigger/special/interface/HLTEcalPhiSymFilter.h"
 #include "HLTrigger/special/interface/HLTHcalPhiSymFilter.h"
 #include "HLTrigger/special/interface/HLTHcalNoiseFilter.h"
+
 #include "HLTrigger/special/interface/HLTPi0RecHitsFilter.h"
-#include "HLTrigger/special/interface/HLTEtaRecHitsFilter.h"
 #include "HLTrigger/special/interface/HLTCSCOverlapFilter.h"
 #include "HLTrigger/special/interface/HLTCSCRing2or3Filter.h"
 
 #include "HLTrigger/special/interface/HLTCountNumberOfObject.h"
 #include "HLTrigger/special/interface/HLTTrackWithHits.h"
+#include "HLTrigger/special/interface/HLTTriggerTypeFilter.h"
 
 #include "DataFormats/TrackerRecHit2D/interface/SiStripRecHit2DCollection.h"
 #include "DataFormats/TrackerRecHit2D/interface/SiStripMatchedRecHit2DCollection.h"
@@ -29,8 +30,8 @@ DEFINE_FWK_MODULE(HLTEcalIsolationFilter);
 DEFINE_FWK_MODULE(HLTEcalPhiSymFilter);
 DEFINE_FWK_MODULE(HLTHcalPhiSymFilter);
 DEFINE_FWK_MODULE(HLTHcalNoiseFilter);
+
 DEFINE_FWK_MODULE(HLTPi0RecHitsFilter);
-DEFINE_FWK_MODULE(HLTEtaRecHitsFilter);
 DEFINE_FWK_MODULE(HLTCSCOverlapFilter);
 DEFINE_FWK_MODULE(HLTCSCRing2or3Filter);
 
@@ -45,4 +46,5 @@ DEFINE_FWK_MODULE(HLTCountNumberOfRoadSearchSeed);
 typedef HLTCountNumberOfObject<edm::View<reco::Track> > HLTCountNumberOfTrack;
 DEFINE_FWK_MODULE(HLTCountNumberOfTrack);
 DEFINE_FWK_MODULE(HLTTrackWithHits);
+DEFINE_FWK_MODULE(HLTTriggerTypeFilter);
 
