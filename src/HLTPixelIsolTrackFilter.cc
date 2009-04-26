@@ -69,7 +69,7 @@ bool HLTPixelIsolTrackFilter::filter(edm::Event& iEvent, const edm::EventSetup& 
   
   bool accept(n>0);
 
-  filterproduct->addCollectionTag(candTag_);
+  filterproduct->addCollectionTag(candTag_, static_cast<const HLTFilter &> (*this));
 
   iEvent.put(filterproduct);
 
