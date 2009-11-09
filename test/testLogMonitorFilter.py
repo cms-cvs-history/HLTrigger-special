@@ -12,12 +12,12 @@ process.maxEvents = cms.untracked.PSet(
   input = cms.untracked.int32(10000)
 )
 
-process.load("HLTrigger.special.hltLogErrorFilter_cfi")
+process.load("HLTrigger.special.hltLogMonitorFilter_cfi")
 
 process.hltTrigReport = cms.EDAnalyzer( "HLTrigReport",
     HLTriggerResults = cms.InputTag( 'TriggerResults' )
 )
 process.MessageLogger.categories.append('HLTrigReport')
 
-process.path = cms.Path(process.hltLogErrorFilter)
+process.path = cms.Path(process.hltLogMonitorFilter)
 process.info = cms.EndPath(process.hltTrigReport)
