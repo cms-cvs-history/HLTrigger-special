@@ -13,7 +13,7 @@
 //
 // Original Author:  Andrea Bocci
 //         Created:  Thu Nov  5 15:16:46 CET 2009
-// $Id: HLTLogMonitorFilter.cc,v 1.1 2009/11/09 00:01:23 fwyzard Exp $
+// $Id: HLTLogMonitorFilter.cc,v 1.4 2009/11/10 15:00:42 fwyzard Exp $
 //
 
 
@@ -44,18 +44,41 @@ private:
       uint32_t threshold;       // configurable threshold, after which messages in this Category start to be logarithmically prescaled
       uint32_t prescale;        // current prescale for this Category
       uint64_t counter;         // number of events that fired this Category
+      uint64_t accepted;        // number of events acepted for this Category
 
       CategoryEntry(uint32_t t = 0) :
-        threshold(t),           // default-constructed entries have the threshold set to 0, which means the associated category is disabled
+        threshold(t),           // default-constructed entries have the threshold set to 0, which means the associated Category is disabled
         prescale(1),
-        counter(0)
+        counter(0),
+        accepted(0)
       { }
+
+      bool accept() {
+        ++counter;
+
+        // fail if the prescaler is disabled (threshold == 0), or if the counter is not a multiple of the prescale
+        if ((threshold == 0) or (counter % prescale))
+          return false;
+
+        // quasi-logarithmic increase in the prescale factor (should be safe even if threshold is 1)
+        if (counter == prescale * threshold)
+          prescale *= threshold;
+
+        ++accepted;
+        return true;
+      }
     };
 
     // ---------- private methods -----------------------
 
     /// EDFilter accept method
     virtual bool filter(edm::Event&, const edm::EventSetup &);
+
+    /// EDFilter beginJob method
+    virtual void beginJob(void);
+
+    /// EDFilter endJob method
+    virtual void endJob(void);
 
     /// check if the requested category has a valid entry
     bool knownCategory(const std::string & category);
@@ -66,19 +89,26 @@ private:
     /// return the entry for requested category, if it exists, or create a new one with the default threshold value
     CategoryEntry & getCategory(const std::string & category);
 
+    /// summarize to LogInfo
+    void summary(void);
+
+
     // ---------- member data ---------------------------
-    uint32_t                            m_prescale;     // default threshold, after which messages in each Category start to be logarithmically prescaled
+    uint32_t                             m_prescale;    // default threshold, after which messages in each Category start to be logarithmically prescaled
     std::map<std::string, CategoryEntry> m_data;        // map each category name to its prescale data
 };
 
 
 // system include files
+#include <sstream>
+#include <iomanip>
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
 #include <boost/algorithm/string.hpp>
 
 // user include files
-#include "FWCore/MessageLogger/interface/LoggedErrorsSummary.h"
+#include "FWCore/MessageLogger/interface/MessageLogger.h"
+#include "FWCore/MessageLogger/interface/MessageSender.h"
 
 //
 // constructors and destructor
@@ -108,20 +138,21 @@ HLTLogMonitorFilter::~HLTLogMonitorFilter()
 //
 
 // ------------ method called on each new Event  ------------
-bool
-HLTLogMonitorFilter::filter(edm::Event & event, const edm::EventSetup & setup) {
+bool HLTLogMonitorFilter::filter(edm::Event & event, const edm::EventSetup & setup) {
   // no LogErrors or LogWarnings, skip processing and reject the event
-  if (not edm::FreshErrorsExist())
+  if (not edm::MessageSender::freshError)
     return false;
 
   // look at the LogErrors and LogWarnings, and accept the event if at least one is under threshold or matches the prescale
   bool accept = false;
   std::string category;
-  std::vector<edm::ErrorSummaryEntry> errors = edm::LoggedErrorsSummary();  // returns by value and clears the internal log
-  BOOST_FOREACH(const edm::ErrorSummaryEntry & error, errors) {
+  // FIXME: is __typeof__ allowed ?
+  // typedef __typeof__(edm::MessageSender::errorSummaryMap) ErrorSummaryMap;
+  typedef std::map<edm::ErrorSummaryMapKey, unsigned int> ErrorSummaryMap;
+  BOOST_FOREACH(const ErrorSummaryMap::value_type & entry, edm::MessageSender::errorSummaryMap) {
     // split the message category
     typedef boost::split_iterator<std::string::const_iterator> splitter;
-    for (splitter i = boost::make_split_iterator(error.category, boost::first_finder("|", boost::is_equal()));
+    for (splitter i = boost::make_split_iterator(entry.first.category, boost::first_finder("|", boost::is_equal()));
          i != splitter();
          ++i)
     {
@@ -129,24 +160,27 @@ HLTLogMonitorFilter::filter(edm::Event & event, const edm::EventSetup & setup) {
       // FIXME: this can be avoided if the m_data map is keyed on boost::sub_range<std::string>
       category.assign(i->begin(), i->end());
 
-      // access the message category, or create a new one as needed
-      CategoryEntry & data = getCategory(category);
-      ++data.counter;
-
-      // if this category is disabled (scale == 0), skip this event
-      // if the counter is not a multiple of the prescale, skip the event
-      if ((data.prescale == 0) or (data.counter % data.prescale))
-        continue;
-
-      // quasi-logarithmic increase in the prescale factor (should be safe even if threshold is 1)
-      if (data.counter == data.prescale * data.threshold)
-        data.prescale *= data.threshold;
-
-      accept = true;
+      // access the message category, or create a new one as needed, and check the prescale
+      if (getCategory(category).accept())
+        accept = true;
     }
   }
 
+  // clear the errorSummaryMap
+  edm::MessageSender::errorSummaryMap.clear();
+  edm::MessageSender::freshError = false;
+
   return accept;
+}
+
+// ------------ method called at the end of the Job ---------
+void HLTLogMonitorFilter::beginJob(void) {
+  edm::MessageSender::errorSummaryIsBeingKept = true;
+}
+// ------------ method called at the end of the Job ---------
+void HLTLogMonitorFilter::endJob(void) {
+  edm::MessageSender::errorSummaryIsBeingKept = false;
+  summary();
 }
 
 /// check if the requested category has a valid entry
@@ -158,7 +192,7 @@ bool HLTLogMonitorFilter::knownCategory(const std::string & category) {
 HLTLogMonitorFilter::CategoryEntry & HLTLogMonitorFilter::addCategory(const std::string & category, uint32_t threshold) {
   // check after inserting, as either the new CategoryEntry is needed, or an error condition is raised
   std::pair<std::map<std::string, HLTLogMonitorFilter::CategoryEntry>::iterator, bool> result = m_data.insert( std::make_pair(category, CategoryEntry(threshold)) );
-  if (result.second)
+  if (not result.second)
     throw cms::Exception("Configuration") << "Duplicate entry for category " << category;
   return result.first->second;
 }
@@ -173,6 +207,24 @@ HLTLogMonitorFilter::CategoryEntry & HLTLogMonitorFilter::getCategory(const std:
     return m_data.insert( std::make_pair(category, CategoryEntry(m_prescale)) ).first->second;
 }
 
+/// summarize to LogInfo
+void HLTLogMonitorFilter::summary(void) {
+  std::stringstream out;
+  out << "Log-Report ---------- HLTLogMonitorFilter Summary ------------\n"
+      << "Log-Report  Threshold   Prescale     Issued   Accepted   Rejected Category\n";
+  typedef std::map<std::string, HLTLogMonitorFilter::CategoryEntry>::value_type Entry;
+  BOOST_FOREACH(const Entry & entry, m_data) {
+    out << "Log-Report "
+        << std::right
+        << std::setw(10) << entry.second.threshold << ' '
+        << std::setw(10) << entry.second.prescale  << ' '
+        << std::setw(10) << entry.second.counter   << ' '
+        << std::setw(10) << entry.second.accepted  << ' '
+        << std::setw(10) << (entry.second.counter - entry.second.accepted) << ' '
+        << std::left     << entry.first            << '\n';
+  }
+  edm::LogVerbatim("Report") << out.str();
+}
 
 // define as a framework plug-in
 #include "FWCore/Framework/interface/MakerMacros.h"
