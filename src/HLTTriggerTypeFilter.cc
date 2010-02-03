@@ -2,8 +2,8 @@
  *
  * See header file for documentation
  *
- *  $Date: 2009/04/01 07:32:50 $
- *  $Revision: 1.1 $
+ *  $Date: 2009/08/06 11:23:34 $
+ *  $Revision: 1.2 $
  *
  *  \author:  Giovanni FRANZONI
  *
@@ -16,6 +16,7 @@
 #include <memory>
 #include <string>
 #include <iostream>
+#include <unistd.h>
 
 //
 // constructors and destructor
@@ -44,10 +45,18 @@ HLTTriggerTypeFilter::~HLTTriggerTypeFilter()
 bool
 HLTTriggerTypeFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
+  // debug hack: dump the environment as seen by CMSSW
+  char ** env = ::environ;
+  edm::LogProblem("Environment") << "Environment variables:" << std::endl;
+  while (* env) {
+    edm::LogProblem("Environment") << * env << std::endl;
+    ++env;
+  }
+  edm::LogProblem("Environment") << std::endl;
+
   if (iEvent.isRealData()) {
     return (iEvent.experimentType() == SelectedTriggerType_); 
   } else {
     return true;
   }
 }
-
